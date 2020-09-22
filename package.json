@@ -1,0 +1,39 @@
+{
+  "name": "phantom-cabal",
+  "version": "1.0.0",
+  "description": "transport-phantom",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon --exec babel-node server.js"
+  },
+  "author": "Niyiragira",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "swagger-jsdoc": "^4.0.0",
+    "swagger-ui-express": "^4.1.4"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.11.6",
+    "@babel/core": "^7.11.6",
+    "@babel/node": "^7.10.5",
+    "@babel/preset-env": "^7.11.5",
+    "dotenv": "^8.2.0",
+    "eslint": "^7.9.0",
+    "eslint-plugin-node": "^11.1.0",
+    "nodemon": "^2.0.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/atlp-rwanda/cabal-phantom-backend.git"
+  },
+  "keywords": [
+    "BUSES"
+  ],
+  "bugs": {
+    "url": "https://github.com/atlp-rwanda/cabal-phantom-backend/issues"
+  },
+  "homepage": "https://github.com/atlp-rwanda/cabal-phantom-backend#readme"
+}
