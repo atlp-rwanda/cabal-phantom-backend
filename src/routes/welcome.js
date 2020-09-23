@@ -29,7 +29,7 @@ app.use("/api/docs",swaggerUi.serve,swaggerUi.setup(swaggerDocs));
  *  get:
  *    description: Use to respond welcome message
  *    responses:
- *      '201':
+ *      '200':
  *        description: A successful response
  */ 
 app.get('/',(req,res)=>res.send('Welcome to our phantom beginning'));
