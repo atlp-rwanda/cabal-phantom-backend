@@ -1,0 +1,29 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "Phantom API",
+      "description": "Phantom API"
+    },
+    "servers": [
+      {
+        "url": "http://localhost:5000",
+        "name": "localhost"
+      }
+    ],
+ 
+ "paths": {
+      "/": {
+        "get": {
+          "tags": ["Welcome To Phantom API"],
+          "summary": "Gets Started",
+          "description": "Welcome to Phantom API.",
+          "responses": {
+            "200": {
+              "description": "WELCOME!"
+            }
+          }
+        }
+      }
+    }
+  }

@@ -2,13 +2,12 @@
 import express from "express";
 import welcomeRoute from "./routes/routeWelcome"
 import swaggerUiExpress from "swagger-ui-express";
-import swaggerOptions from "./utils/swagger";
-import swaggerJsDoc from "swagger-jsdoc";
+import swaggerDocument from "../swagger.json";
 
 
 const app = express();
 
-app.use("/phantom-docs", swaggerUiExpress.serve, swaggerUiExpress.setup(swaggerJsDoc(swaggerOptions)));
+app.use('/phantom-docs', swaggerUiExpress.serve, swaggerUiExpress.setup(swaggerDocument));
 
 app.use("/",welcomeRoute);
 
