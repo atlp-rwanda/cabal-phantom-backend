@@ -1,0 +1,10 @@
+{
+	"404": "Not Found, Please go back",
+	"welcome": "Welcome to our phantom beginning",
+	"ok": "success",
+	"emptyPassORemail": "Fill required fields",
+	"passOemailInvalid": "Invalid Username or passoword",
+	"loginSuccess": "Login successful",
+	"Pleaselog": "Please log in or sign up to continue",
+	"PleaseVerify": "Please Verify your email to continue"
+}

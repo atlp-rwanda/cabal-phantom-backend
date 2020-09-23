@@ -1,7 +1,4 @@
 node_modules
-<<<<<<< HEAD
+.env
+.nyc_output 
 
-.env
-=======
-.env
->>>>>>> ch(setup):set up sequelize
