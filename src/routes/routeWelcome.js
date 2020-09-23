@@ -6,3 +6,5 @@ const router = express.Router();
 router.route("/").get(welcomeController.getWelcome)
 
 export default router
+
+
