@@ -1,7 +1,4 @@
 node_modules
-<<<<<<< HEAD
-
 .env
-=======
-.env
->>>>>>> ch(setup):set up sequelize
+migrations
+seeders
