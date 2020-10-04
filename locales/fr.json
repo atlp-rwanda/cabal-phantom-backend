@@ -1,4 +1,10 @@
 {
   "welcome": "Bienvenue au Phantom",
-  "404": "Non trouvé, veuillez revenir en arrière"
+  "404": "Non trouvé, veuillez revenir en arrière",
+  "ok": "succès",
+  "emptyPassORemail": "Remplissez les champs obligatoires",
+	"passOemailInvalid": "Nom d'utilisateur ou mot de passe invalide",
+  "loginSuccess": "connexion réussie",	
+  "Pleaselog": "Veuillez vous connecter ou vous inscrire pour continuer",
+	"PleaseVerify": "Veuillez vérifier votre adresse e-mail pour continuer"
 }

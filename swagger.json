@@ -24,6 +24,131 @@
             }
           }
         }
+      },
+
+      "/api/v1/users/login": {
+        "post": {
+          "tags": [
+            "user"
+          ],
+          "summary": "Logs user into the system",
+          "operationId": "loginUser",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "user",
+              "description": "input password and email",
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          ],
+
+          "responses": {
+            "201": {
+              "description": " Log in successful ",
+              "headers": {
+                "X-Rate-Limit": {
+                  "description": "calls per hour allowed by the user",
+                  "schema": {
+                    "type": "integer",
+                    "format": "int64"
+                  }
+                },
+                "X-Expires-After": {
+                  "description": "date in UTC when token expires",
+                  "schema": {
+                    "type": "string",
+                    "format": "date-time"
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Invalid username/password supplied",
+              "headers":
+              {
+                "message": {
+                  "description": "Unauthorized",
+                  "schema": {
+                    "type": "string"
+                   
+                  }
+                }  
+             }
+            },
+           "400": {
+              "description": "Required filled must be filled",
+                "headers":
+                {
+                  "message": {
+                    "description": "Every field must have value",
+                    "schema": {
+                      "type": "string"
+                     
+                    }
+                  }  
+               }
+              
+            }
+          },
+          "x-codegen-request-body-name": "body"
+        }
+     }
+   },
+
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "example":"example@phantom.com"
+          },
+          "password": {
+            "type": "string",
+            "example":"***********"
+          },
+          "role": {
+            "type": "string"
+          },
+          "birthday": {
+            "type": "integer",
+            "description": "User Role",
+            "format": "int32"
+          },
+          "gender": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "integer",
+            "description": "User Status",
+            "format": "int32"
+          },
+          "UpdatedAt": {
+            "type": "integer",
+            "description": "User Status",
+            "format": "int32"
+          }
+        },
+        "xml": {
+          "name": "User"
+        }
       }
     }
   }
+
+
+
+
+}
