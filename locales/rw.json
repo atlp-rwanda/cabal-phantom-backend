@@ -1,4 +1,10 @@
 {
     "welcome": "Murakaza neza kuri Phantom",
-    "404": "Nta nzira ihari, subira inyuma"
+    "404": "Nta nzira ihari, subira inyuma",
+    "ok": "Ibyakozwe byagenze neza",
+    "emptyPassORemail": "Hari aho mutujuje ",
+	"passOemailInvalid": "Izina cg ijambo ryibanga ntago aribyo",
+    "loginSuccess": "Muhawe Ikaze",
+    "Pleaselog": "Banza usabe uruhushya rwo kwinjira",
+	"PleaseVerify": "Banza Ushyiremo Email yawe kugirango ukomeze"
 }

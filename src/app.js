@@ -1,11 +1,11 @@
 import express from "express";
 import i18n from 'i18n'
-import bodyParser from 'body-parser'
 import swaggerUiExpress from "swagger-ui-express";
 import swaggerDocument from "../swagger.json";
+import userRoute from './routes/userRouters';
 
 const app = express();
-app.use(bodyParser.json());
+app.use(express.json())
 
 i18n.configure({
     locales: ['en', 'fr', 'rw'],
@@ -25,13 +25,10 @@ app.get('/', (req, res) => {
         message: res.__('welcome')
     })
 })
-
+app.use('/api/v1/users',userRoute)
 app.all('*', (req, res) => {
     res.status(404).json({
         message: res.__("404")
     })
 })
-
 export default app;
-
-
