@@ -1,6 +1,6 @@
 import Model from '../database/models'
 
-exports.checkIfEmailExists = async(req, res, next) => {
+const checkIfEmailExists = async(req, res, next) => {
     const userExist = await Model.User.findOne({ where: { email: req.body.email } });
 
     if (!userExist) {
@@ -10,3 +10,4 @@ exports.checkIfEmailExists = async(req, res, next) => {
     }
     next()
 }
+export default checkIfEmailExists

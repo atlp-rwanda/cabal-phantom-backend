@@ -32,7 +32,7 @@
     "jsonwebtoken": "^8.5.1",
     "mocha": "^8.1.3",
     "node-mocks-http": "^1.9.0",
-    "nodemailer": "^6.4.13",
+    "nodemailer": "^6.4.14",
     "nyc": "^15.1.0",
     "paginate-info": "^1.0.4",
     "pg": "^8.3.3",
