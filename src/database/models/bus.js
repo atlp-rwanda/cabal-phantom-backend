@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     type: DataTypes.STRING,
     location: DataTypes.STRING,
     userId: DataTypes.INTEGER,
-    routeId: DataTypes.INTEGER
+    routeId:DataTypes.INTEGER
   }, {});
   
   Bus.associate = function(models) {

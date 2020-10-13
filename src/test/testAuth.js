@@ -7,14 +7,6 @@ import userMock from './mock/userMocks'
 chai.use(chaiHttp);
 
 describe("Phantom API - Auth", () => {
-    it('it should Not GET All Users without token', (done) => {
-        chai.request(app)
-            .get('/api/v1/auth')
-            .end((err, res) => {
-                expect(res.statusCode).to.equal(401);
-                done();
-            });
-    });
 
     it('it should Not GET All Users without permission', (done) => {
         chai.request(app)
