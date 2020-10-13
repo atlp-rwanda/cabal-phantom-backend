@@ -1,34 +1,20 @@
 import express from "express";
-import i18n from 'i18n'
 import swaggerUiExpress from "swagger-ui-express";
 import swaggerDocument from "../swagger.json";
-import userRoute from './routes/userRouters';
+import routes from './routes/index'
+import i18n from './language/languageConfig'
+import cors from 'cors'
 
 const app = express();
 app.use(express.json())
-
-i18n.configure({
-    locales: ['en', 'fr', 'rw'],
-    header: 'accept-language',
-    extension: '.json',
-    queryParameter: 'lang',
-    directoryPermissions: '755',
-    autoReload: true,
-    directory: __dirname + '/../locales'
-});
+app.use(cors())
 
 app.use(i18n.init)
-app.use('/phantom-docs', swaggerUiExpress.serve, swaggerUiExpress.setup(swaggerDocument));
+app.use('/api-docs', swaggerUiExpress.serve, swaggerUiExpress.setup(swaggerDocument));
 
-app.get('/', (req, res) => {
-    res.status(200).json({
-        message: res.__('welcome')
-    })
-})
-app.use('/api/v1/users',userRoute)
-app.all('*', (req, res) => {
-    res.status(404).json({
-        message: res.__("404")
-    })
-})
-export default app;
+app.use(routes)
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, console.log(`Server started on port ${PORT}`))
+
+export default app

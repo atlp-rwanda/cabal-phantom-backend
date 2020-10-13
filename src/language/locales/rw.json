@@ -1,0 +1,19 @@
+{
+	"404": "Nta nzira ihari, subira inyuma",
+	"welcome": "Murakaza neza kuri Phantom",
+	"ok": "Ibyakozwe byagenze neza",
+	"emptyPassORemail": "Hari aho mutujuje ",
+	"passOemailInvalid": "Izina cg ijambo ryibanga ntago aribyo",
+	"loginSuccess": "Muhawe Ikaze",
+	"Pleaselog": "Banza usabe uruhushya rwo kwinjira",
+	"PleaseVerify": "Banza Ushyiremo Email yawe kugirango ukomeze",
+	"log in to get access": "Injira kugirango ubone uburyo bwo gukomeza",
+	"permission for this action": "Ntabwo ufite uburenganzira bwo gukora iki gikorwa",
+	"Token expired": "Token yararangiye, ongera winjire",
+	"login again": "Ongera winjire kugirango ukomeze",
+	"email is not valid": "Imeri wanditse ntiyemewe",
+	"email is required": "imeri irakenewe",
+	"role is required": "role irakenewe",
+	"role must be one of [driver, operator, admin]": "role igomba kuba imwe muri izi [driver, operator, admin]",
+	"user doesn't exist": "ukoresha app ntabonetse" 
+}

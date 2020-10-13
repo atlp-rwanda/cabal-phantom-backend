@@ -1,0 +1,21 @@
+{
+	"404": "Not Found, Please go back",
+	"welcome": "Welcome to our phantom beginning",
+	"ok": "success",
+	"emptyPassORemail": "Fill required fields",
+	"passOemailInvalid": "Invalid Username or passoword",
+	"loginSuccess": "Login successful",
+	"Pleaselog": "Please log in or sign up to continue",
+	"PleaseVerify": "Please Verify your email to continue",
+	"log in to get access": "Please you may login to get access",
+	"permission for this action": "You do not have permission to perform this action",
+	"Token expired": "Your token expired, please login again",
+	"login again": "Please login again to continue",
+	"logout done": "logout done",
+	"user doesn't exist": "user doesn't exist",
+	"email is not valid": "Please enter a valid email",
+	"email is required": "email is required",
+	"role is required": "role is required",
+	"role must be one of [driver, operator, admin]": "role must be one of [driver, operator, admin]",
+	"role must be one of [normal, driver, operator, admin]": "role must be one of [normal, driver, operator, admin]"
+}
