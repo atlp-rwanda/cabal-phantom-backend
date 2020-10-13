@@ -11,7 +11,7 @@ app.use(i18n.init)
 
 app.use(routes)
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 app.listen(PORT, console.log(`Server started on port ${PORT}`))
 
 export default app
