@@ -2,9 +2,11 @@ import express from "express";
 const router = express()
 import userController from '../controller/userControllers'
 import protectMiddleware from '../middleware/protectRoutes'
-import roleValidator from '../validation/roleValidation'
 import checkEmailExists from '../middleware/checkEmailExist'
-import userValidation from "../validation/userValidation";
+//import userValidation from "../validation/userValidation";
+import validators from '../validation/index'
+
+const {logInChecker,resetPassword,sendEmailChecker,roleValidate,userValidate} = validators;
 
 /** 
  * @swagger
@@ -32,7 +34,7 @@ import userValidation from "../validation/userValidation";
  *    401: 
  *     description: Invalid email and password 
  */
-router.post('/login', userController.logIn)
+router.post('/login',logInChecker,userController.logIn)
 
 /** 
  * @swagger
@@ -74,10 +76,9 @@ router.post(
     '/register',
     protectMiddleware.protect,
     protectMiddleware.restrictTo('admin'),
-    userValidation.userValidate,
+    userValidate, 
     userController.createUser
-)
-
+    )
 /** 
  * @swagger
  * 
@@ -143,9 +144,80 @@ router.patch(
     '/updateuser',
     protectMiddleware.protect,
     protectMiddleware.restrictTo('admin'),
-    roleValidator.roleValidate,
-    checkEmailExists.checkIfEmailExists,
+    roleValidate,
+    checkEmailExists,
     userController.updateUser
 )
+
+/** 
+ * @swagger
+ * 
+ * /api/v1/auth/forgetPassword:
+ *  post: 
+ *   summary: Forget password 
+ *   description: Send email with reset password link
+ *   operationId: Send link
+ *   tags: 
+ *   - User
+ *   parameters: 
+ *   - in: body
+ *     name: User
+ *     description: Email to send on link
+ *     schema: 
+ *       type: object 
+ *       properties:
+ *        email: 
+ *         type: string
+ *         example: "example@yahoo.fr"
+ *   produces: application/json
+ *   responses:
+ *    200: 
+ *     description: Reset password is successfully
+ *    400: 
+ *     description: invalid input
+ *    404: 
+ *     description: unauthorized user
+ */
+router.post('/forgetPassword',sendEmailChecker,userController.forgetPassword)
+
+/** 
+ * @swagger
+ * 
+ * /api/v1/auth/resetPassword/{token}:
+ *  put: 
+ *   summary: Reset password 
+ *   description: Resetting password and you may use it later in login
+ *   operationId: Password reset
+ *   tags: 
+ *   - User
+ *   parameters: 
+ *   - in: path
+ *     name: token
+ *     required: true
+ *     type: string
+ *     description: token provided in link
+ *   - in: body
+ *     name: User
+ *     description: provide password and confimPassword to reset password
+ *     schema: 
+ *       type: object 
+ *       properties:
+ *        password: 
+ *         type: string,
+ *         example: "*********"
+ *        confirmPassword: 
+ *         type: string
+ *         example: "*********"
+ *   produces: application/json
+ *   responses:
+ *    200: 
+ *     description: Email send successfully
+ *    400: 
+ *     description: invalid input
+ *    404: 
+ *     description: unauthorized user
+ */
+router.put('/resetPassword/:token',resetPassword,userController.resetPassword)
+
 
 export default router;

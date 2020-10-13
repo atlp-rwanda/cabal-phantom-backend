@@ -4,10 +4,10 @@ module.exports = {
     [
       {
         name: 'NKUBITO Emmanuel',
-        email: 'nkubito@phantom.com',
+        email: 'emmanuelnkubito2@gmail.com',
         password: '$2a$10$I5iHDBzgymJ7lNVFgOKr1ec65/OX/lqb66mZ5xsEJhhVcURYFmwYG',
         birthdate: '1998-10-23',
-        gender: 'female',
+        gender: 'male',
         role: 'operator',
         createdAt: new Date(),
         updatedAt: new Date(),

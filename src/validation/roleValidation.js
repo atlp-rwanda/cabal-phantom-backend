@@ -1,6 +1,5 @@
-import Joi from 'joi';
-
-exports.roleValidate = (req, res, next) => {
+import Joi from '@hapi/joi';
+const roleValidate = (req, res, next) => {
     const roleValidation = Joi.object({
         email: Joi.string().required().email().messages({
             "any.required": res.__('email is required'),
@@ -16,3 +15,4 @@ exports.roleValidate = (req, res, next) => {
     if (result.error) return res.status(400).json({ message: result.error.details[0].message });
     next();
 }
+export default roleValidate

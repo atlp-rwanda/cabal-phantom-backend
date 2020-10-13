@@ -3,6 +3,7 @@ import app from "../app";
 import chai, { expect } from 'chai';
 import chaiHttp from "chai-http";
 import { describe, it } from 'mocha';
+import userMock from './mock/userMocks'
 
 chai.use(chaiHttp);
 
@@ -31,28 +32,10 @@ describe("Phantom API test", () => {
 });
 
 describe('/POST Login user', () => {
-  it('should check if Data provided ', (done) => {
-    chai.request(app)
-        .post('/api/v1/auth/login')
-        .send({
-          email:"nkubito@gmail.com",
-          password:""
-        })
-        .end((err, res) => {
-          expect(res).to.have.status(400);
-          expect(res.body.message).to.equals("Fill required fields");
-          done();
-        });
-  });
-
-  const user = {
-       email:"nkubito@phantom.com",
-       password:"admin"
-     }
   it('it should check if  user exist', (done) => {
     chai.request(app)
         .post('/api/v1/auth/login')
-        .send(user)
+        .send(userMock.correctInfo)
         .end((err, res) => {
           expect(res).to.have.status(201);
           expect(res.body.status).to.equals("success");
@@ -60,16 +43,64 @@ describe('/POST Login user', () => {
           done();
         });
   });
-  it('should check if provided info is incorrect', (done) => {
+  it('should return error message if email is not valid', (done) => {
     chai.request(app)
         .post('/api/v1/auth/login')
-        .send({
-          email:"nkubito@phantom.com",
-          password:"adminus"
-        })
+        .send(userMock.InvalidEmail)
         .end((err, res) => {
-          expect(res).to.have.status(401);
-          expect(res.body.message).to.equals("Invalid Username or passoword");
+          expect(res).to.have.status(400);
+          expect(res.body.message).to.equals("provide valid email");
+          done();
+        });
+  });
+  it('should return error message if email is not provided', (done) => {
+    chai.request(app)
+        .post('/api/v1/auth/login')
+        .send(userMock.invalidPassword)
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+          expect(res.body.message).to.equals("email is required");
+          done();
+        });
+  });
+  it('should return error message if email is empty', (done) => {
+    chai.request(app)
+        .post('/api/v1/auth/login')
+        .send(userMock.emptyEmail)
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+          expect(res.body.message).to.equals("Email must not be empty");
+          done();
+        });
+  });
+
+  it('should return error message if password is empty', (done) => {
+    chai.request(app)
+        .post('/api/v1/auth/login')
+        .send(userMock.emptyPassword)
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+          expect(res.body.message).to.equals("password is not allowed to be empty");
+          done();
+        });
+  });
+  it('should return error message if password is not provided', (done) => {
+    chai.request(app)
+        .post('/api/v1/auth/login')
+        .send(userMock.rightEmail)
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+          expect(res.body.message).to.equals("password is required");
+          done();
+        });
+  });
+  it('should return error message if password is short', (done) => {
+    chai.request(app)
+        .post('/api/v1/auth/login')
+        .send(userMock.shortPassword)
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+          expect(res.body.message).to.equals("Password should have a minimum length of 5 characters");
           done();
         });
   });
@@ -82,10 +113,8 @@ describe("Phantom testing", () => {
       .get("/")
       .end((err, res) => {
         expect(res).to.have.status(200);
-        
-          expect(res.body.message).to.equals('Welcome to our phantom beginning');
-          done();
+        expect(res.body.message).to.equals('Welcome to our phantom beginning');
+        done();
         });
     });
 });
-
