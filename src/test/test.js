@@ -33,7 +33,7 @@ describe("Phantom API test", () => {
 describe('/POST Login user', () => {
   it('should check if Data provided ', (done) => {
     chai.request(app)
-        .post('/api/v1/users/login')
+        .post('/api/v1/auth/login')
         .send({
           email:"nkubito@gmail.com",
           password:""
@@ -51,7 +51,7 @@ describe('/POST Login user', () => {
      }
   it('it should check if  user exist', (done) => {
     chai.request(app)
-        .post('/api/v1/users/login')
+        .post('/api/v1/auth/login')
         .send(user)
         .end((err, res) => {
           expect(res).to.have.status(201);
@@ -62,7 +62,7 @@ describe('/POST Login user', () => {
   });
   it('should check if provided info is incorrect', (done) => {
     chai.request(app)
-        .post('/api/v1/users/login')
+        .post('/api/v1/auth/login')
         .send({
           email:"nkubito@phantom.com",
           password:"adminus"
@@ -74,4 +74,3 @@ describe('/POST Login user', () => {
         });
   });
 });
-
