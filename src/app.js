@@ -19,13 +19,13 @@ i18n.configure({
 
 app.use(i18n.init)
 app.use('/phantom-docs', swaggerUiExpress.serve, swaggerUiExpress.setup(swaggerDocument));
-
+app.use("/api/v1/users",userRoute)
 app.get('/', (req, res) => {
     res.status(200).json({
         message: res.__('welcome')
     })
 })
-app.use('/api/v1/users',userRoute)
+
 app.all('*', (req, res) => {
     res.status(404).json({
         message: res.__("404")

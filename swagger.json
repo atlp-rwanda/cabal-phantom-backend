@@ -13,19 +13,158 @@
     ],
  
  "paths": {
-      "/": {
-        "get": {
-          "tags": ["Welcome To Phantom API"],
-          "summary": "Gets Started",
-          "description": "Welcome to Phantom API.",
-          "responses": {
-            "200": {
-              "description": "WELCOME!"
+    "/": {
+      "get": {
+        "tags": ["Welcome To Phantom API"],
+        "summary": "Gets Started",
+        "description": "Welcome to Phantom API.",
+        "responses": {
+          "200": {
+            "description": "WELCOME!"
+          }
+        }
+      }
+    },
+    "/api/v1/users/{id}":{
+      "get": {
+        "tags": [
+            "Users"
+        ],
+        "summary": "Get the profile of the user",
+        "description": "Get user's profile",
+        "operationId": "getProfile",
+        "parameters": [
+            {
+                "in": "path",
+                "name": "id",
+                "type": "number",
+                "required": true
             }
+        ],
+        "produces": [
+            "application/json"
+        ],
+        "responses": {
+            "200": {
+                "description": "OK"
+            }
+        }
+      },
+      "put": {
+        "tags": [
+            "Users"
+        ],
+        "summary": " Update the profile of the user",
+        "description": "Update user's profile",
+        "operationId": "updateProfile",
+        "parameters": [
+            {
+                "in": "path",
+                "name": "id",
+                "type": "number",
+                "required": true
+            },
+            {
+                "in": "body",
+                "name": "body",
+                "schema": {
+                    "$ref": "#/components/schemas/User"
+                }
+            }
+        ],
+        "produces": [
+            "application/json"
+        ],
+        "responses": {
+            "200": {
+                "description": "Profile Updated successfully"
+            }
+        }
+    },
+      "delete": {
+        "tags": [
+            "Users"
+        ],
+        "summary": "Get the profile of the user",
+        "description": "Get user's profile",
+        "operationId": "updateProfile",
+        "parameters": [
+            {
+                "in": "path",
+                "name": "id",
+                "schema": {
+                  "type": "integer"
+              },
+              "required":true
+            }
+        ],
+        "produces": [
+            "application/json"
+        ],
+        "responses": {
+            "200": {
+                "description": "Profile Deleted successfully"
+            }
+        }
+    }
+
+    },
+    "/api/v1/users/": {
+      "get": {
+        "tags": ["users CRUD"],
+        "summary": "Drivers and operators",
+        "description": "Welcome to your users Phantom API.",
+        "responses": {
+          "200": {
+            "description": "HERE IT IS!"
           }
         }
       },
+      "post": {
+        "tags": [
+          "users CRUD"
+        ],
+        "summary": "creates a new user",
+        "operationId": "createUser",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "user",
+            "description": "input name,email,password,birthdate and gender",
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        ],
 
+        "responses": {
+          "201": {
+            "description": " Sucessfully created user "
+          },
+          "401": {
+            "description": "Some of the fields do not validate"
+          },
+         "400": {
+            "description": "Required filled must be filled",
+              "headers":
+              {
+                "message": {
+                  "description": "Every field must have value",
+                  "schema": {
+                    "type": "string"
+                   
+                  }
+                }  
+             }
+            
+          }
+        }
+      }
+   }
+ ,
+     
       "/api/v1/users/login": {
         "post": {
           "tags": [
@@ -122,7 +261,7 @@
           "role": {
             "type": "string"
           },
-          "birthday": {
+          "birthdate": {
             "type": "integer",
             "description": "User Role",
             "format": "int32"

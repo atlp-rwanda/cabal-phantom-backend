@@ -1,6 +1,6 @@
 "use strict"
 import Modal from '../database/models';
-import bcrypt from 'bcryptjs';
+import bcrypt from 'bcrypt';
 import { signinToken } from './../utils/jwt';
 const logIn = async(req,res)=>{
     const {email,password} = req.body;
@@ -8,7 +8,7 @@ const logIn = async(req,res)=>{
       return res.status(400).send({
           message:res.__( "emptyPassORemail")
       })
-    };
+    }
     const user = await Modal.User.findOne({  
         where:{
         email
@@ -18,7 +18,7 @@ const logIn = async(req,res)=>{
         return res.status(401).send({
             message:res.__('passOemailInvalid'),
         });
-    };
+    }
     const token = signinToken(
         { email:email,role:user.role}
     );

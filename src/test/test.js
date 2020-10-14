@@ -75,3 +75,56 @@ describe('/POST Login user', () => {
   });
 });
 
+describe("Phantom testing", () => {
+  it("Should return a welcome message", done => {
+    chai
+      .request(app)
+      .get("/")
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        
+          expect(res.body.message).to.equals('Welcome to our phantom beginning');
+          done();
+        });
+    });
+
+    it("Should get all users", done=>{
+      chai
+        .request(app)
+        .get("/api/v1/users")
+        .end((err,res)=>{
+          expect(res).to.have.status(200);
+          expect(res.body).to.be.a("array");
+          done();
+        })
+    });
+
+    it("Should create a new user", done=>{
+      chai 
+        .request(app)
+        .post("/api/v1/users")
+        .end((err,res)=>{
+          expect(res).to.have.status(201);
+          expect(res.body).to.be.a("object");
+          done();
+        })
+    });
+
+    it('get a single user by id', async () => {
+      const id = 1 
+      expect(id).to.be.not.null;
+      chai
+        .request(app)
+        .get(`/api/v1/users/${id}`)
+        .end((err,res)=>{
+          expect(res.status).eq(200);
+          const m = res.body;
+          expect(m).to.be.not.null;
+          expect(res.body).to.be.a("array");
+        });
+    });
+
+
+});
+
+
