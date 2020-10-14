@@ -6,7 +6,6 @@ import { describe, it } from 'mocha';
 
 chai.use(chaiHttp);
 
-
 describe("Phantom API test", () => {
   describe('/GET Welcome', () => {
     it('it should GET welcome', (done) => {
