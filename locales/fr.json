@@ -6,5 +6,6 @@
 	"passOemailInvalid": "Nom d'utilisateur ou mot de passe invalide",
   "loginSuccess": "connexion réussie",	
   "Pleaselog": "Veuillez vous connecter ou vous inscrire pour continuer",
-	"PleaseVerify": "Veuillez vérifier votre adresse e-mail pour continuer"
+  "PleaseVerify": "Veuillez vérifier votre adresse e-mail pour continuer",
+  "User with the provided email is already registered.": "L'utilisateur avec l'e-mail fourni est déjà inscrit."
 }

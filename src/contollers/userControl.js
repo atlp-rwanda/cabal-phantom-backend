@@ -1,7 +1,9 @@
 import Model from "../database/models"
 import pwd from "../utils/generatePassword"
 import emails from "../utils/email.js"
-import bcrypt from "bcrypt"
+import bcrypt from "bcrypt";
+import validatorFile from "../validations/registerValid"
+
 
 exports.getAllUsers= ()=>{
     const userPromise = new Promise((resolve)=>{
@@ -22,6 +24,19 @@ exports.createUser = async (req, res) => {
         birthdate: req.body.birthdate,
         gender: req.body.gender
         };
+
+        await validatorFile.registerValidation(req.body)
+        const userEmail  = req.body.email;
+        
+      const doesExist = await Model.User.findOne({
+          where: {email:userEmail}
+      });
+        if(doesExist){
+          res.status(200).json({
+            message:"User with the provided email is already registered."
+          })
+          return false
+        }
         const user = await Model.User.create(theUser); 
         const Options ={
           email:req.body.email,
@@ -32,6 +47,7 @@ exports.createUser = async (req, res) => {
         user
       });
     } catch (error) {
+      console.log(error)
       return res.status(500).json({error: error.message})
     }
   }

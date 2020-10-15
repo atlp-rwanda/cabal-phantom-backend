@@ -6,5 +6,6 @@
 	"passOemailInvalid": "Izina cg ijambo ryibanga ntago aribyo",
     "loginSuccess": "Muhawe Ikaze",
     "Pleaselog": "Banza usabe uruhushya rwo kwinjira",
-	"PleaseVerify": "Banza Ushyiremo Email yawe kugirango ukomeze"
+    "PleaseVerify": "Banza Ushyiremo Email yawe kugirango ukomeze",
+    "User with the provided email is already registered.":"Umukoresha hamwe na imeri yatanzwe yamaze kwiyandikisha"
 }
