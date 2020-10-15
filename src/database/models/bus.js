@@ -3,6 +3,8 @@ module.exports = (sequelize, DataTypes) => {
     plate: DataTypes.STRING,
     company: DataTypes.STRING,
     seats: DataTypes.INTEGER,
+    commuters:DataTypes.INTEGER,
+    availableSeats:DataTypes.INTEGER,
     status: DataTypes.STRING,
     category: DataTypes.STRING,
     type: DataTypes.STRING,
