@@ -99,17 +99,6 @@ describe("Phantom testing", () => {
         })
     });
 
-    it("Should create a new user", done=>{
-      chai 
-        .request(app)
-        .post("/api/v1/users")
-        .end((err,res)=>{
-          expect(res).to.have.status(201);
-          expect(res.body).to.be.a("object");
-          done();
-        })
-    });
-
     it('get a single user by id', async () => {
       const id = 1 
       expect(id).to.be.not.null;
