@@ -40,7 +40,7 @@ class userController {
     const token = signinToken(
       { id: user.id }
     );
-
+    user.password=undefined
     res.status(201).json({
       status: res.__('ok'),
       message: res.__("loginSuccess"),

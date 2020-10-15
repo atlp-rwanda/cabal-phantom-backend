@@ -28,6 +28,8 @@ module.exports = {
         plate: "RAB003A",
         company: "Volcano",
         seats: 65,
+        commuters: 30,
+        availableSeats:35,
         status: 'active',
         category: 'medium',
         type: 'coaster',

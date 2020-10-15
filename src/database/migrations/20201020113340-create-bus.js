@@ -17,6 +17,12 @@ module.exports = {
       seats: {
         type: Sequelize.INTEGER
       },
+      commuters: {
+        type: Sequelize.INTEGER,
+      },
+      availableSeats:{
+        type: Sequelize.INTEGER,
+      },
       status: {
         type: Sequelize.STRING
       },

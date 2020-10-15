@@ -170,7 +170,7 @@ router.get(
  *    400: 
  *     description: Invalid inputs
  *    500: 
- *     description: Incorrect information 
+ *     description: Incorrect syntax 
  */
 
 router
@@ -186,22 +186,6 @@ router
  * @swagger
  * 
  * /api/v1/buses/{id}:
- *  get: 
- *    summary: Get bus by id
- *    description: Retrieve bus by id
- *    tags:
- *    - Bus
- *    parameters:
- *    - in: path
- *      name: id
- *      required: true
- *      type: integer
- *      description: Enter bus id
- *    responses: 
- *     200: 
- *      description: Retrieved Successfully
- *     404: 
- *      description: ID Not Found
  *  patch: 
  *    summary: update existing bus
  *    description: Return updated bus
@@ -264,10 +248,7 @@ router
 
 router
     .route('/:id')
-    .get(
-        checkExist.checkBusID,
-        busController.getBus
-    )
+
     .patch(
         protectMiddleware.protect,
         protectMiddleware.restrictTo('operator', 'admin'),
@@ -369,8 +350,35 @@ router.patch(
     checkExist.ckeckUserEmail,
     checkExist.checkAssignment,
     busController.unassignDriver
- )
- 
+)
+
+/** 
+ * @swagger
+ * 
+ * /api/v1/buses/{id}:
+ *  get: 
+ *    summary: View Bus's information
+ *    description: Enquire Bus's Info
+ *    tags:
+ *    - Bus
+ *    parameters:
+ *    - in: path
+ *      name: id
+ *      required: true
+ *      type: integer
+ *      default : 3
+ *      description: Enter bus id
+ *    responses: 
+ *     200: 
+ *      description: Enquire Bus's info is Successfully
+ *     404:
+ *      description: Enquire Bus's that does not exist in system
+ *     500:
+ *      description:  Enquire Bus's info Fails 
+ */
+ router.get('/:id',
+ checkExist.checkBusID,
+ busController.getBus )
 
 
 export default router;

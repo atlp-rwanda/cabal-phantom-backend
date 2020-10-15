@@ -11,10 +11,11 @@ class busController {
     static async createNewBus(req, res) {
         try {
             const { plate, company, seats, status, type, location } = req.body
-            const category = helperFunction.classifyBus(req.body.seats)
-
+            const category = helperFunction.classifyBus(seats)
+            const availableSeats = seats 
+            const commuters=0
             const bus = await Bus.create({
-                plate, company, seats, status, type, location, category
+                plate, company, seats, status, type, location, category, commuters, availableSeats
             });
             return res.status(201).json({
                 bus
@@ -56,8 +57,10 @@ class busController {
 
     static async getBus(req, res) {
         try {
-            const bus = await Bus.findAll({ where: { id: req.params.id } })
-            return res.status(200).json({ bus })
+            const {id} = req.params
+            const findBus = await Bus.findByPk(id)
+            
+            return res.status(200).json({ findBus })
         } catch (error) {
             return res.status(500).json({
                 message: res.__("Bus with") + ` id = ${req.params.id} ` + res.__("not found")
@@ -199,12 +202,32 @@ class busController {
         })
             
         } catch (error) {
-            res.status(500).json({
+           return res.status(500).json({
                 error:res.__('This route  does not exist')
             })    
         }
 
     }
+
+    // static async enquireBusInfo(req,res){
+    //     try {
+    //         const {id} = req.params
+    //         const findBus = await Bus.findByPk(id)
+    //         const availableSeats = findBus.seats - findBus.commuters
+    //         return res.status(200).json({
+    //                   location: findBus.location,
+    //                   status: findBus.status,
+    //                   commuters: findBus.commuters,
+    //                   type: findBus.type,
+    //                   availableSeats: availableSeats
+    //                 })            
+            
+    //     } catch (error) {
+    //        return res.status(500).json({
+    //             message: res.__("internalServerError")
+    //         })
+    //     }
+    // }
 }
 
 export default busController
