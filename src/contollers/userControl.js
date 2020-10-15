@@ -33,8 +33,7 @@ exports.createUser = async (req, res) => {
       });
         if(doesExist){
           res.status(200).json({
-            status:res.__('failed'),
-            message:res.__("User with the provided email is already registered.")
+            message:"User with the provided email is already registered."
           })
           return false
         }

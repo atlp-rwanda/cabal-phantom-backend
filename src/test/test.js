@@ -94,7 +94,18 @@ describe("Phantom testing", () => {
         .get("/api/v1/users")
         .end((err,res)=>{
           expect(res).to.have.status(200);
-          expect(res.body).to.be.a("array");
+
+          done();
+        })
+    });
+
+    it("Should create a new user", done=>{
+      chai 
+        .request(app)
+        .post("/api/v1/users")
+        .end((err,res)=>{
+          expect(res.body).to.be.a("object");
+          expect(res).to.have.status(500);
           done();
         })
     });
