@@ -15,5 +15,13 @@
 	"email is not valid": "Veuillez saisir un e-mail valide",
 	"email is required": "e-mail est requis",
 	"role is required": "le rôle est requis",
-	"role must be one of [driver, operator, admin]": "le rôle doit être l'un des [driver, operator, admin]"
+	"role must be one of [driver, operator, admin]": "le rôle doit être l'un des [driver, operator, admin]",
+	"role must be one of [normal, driver, operator, admin]": "role must be one of [normal, driver, operator, admin]",
+	"User with the provided email is already registered.": "L'utilisateur avec l'e-mail fourni est déjà enregistré.",
+	"provide valid email": "fournissez un e-mail valide",
+	"Name must be atleast four characters": "Le nom doit comporter au moins quatre caractères",
+	"birthdate must be atleast six characters": "la date de naissance doit comporter au moins six caractères",
+	"date of birth must be provided": "la date de naissance doit être fournie",
+	"Name must not be empty":"Le nom ne doit pas être vide",
+	"date of birth should be in a format yyyy-mm-dd": "la date de naissance doit être au format aaaa-mm-jj"
 }

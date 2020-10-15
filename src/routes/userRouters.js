@@ -4,8 +4,17 @@ import userController from '../controller/userControllers'
 import protectMiddleware from '../middleware/protectRoutes'
 import roleValidator from '../validation/roleValidation'
 import checkEmailExists from '../middleware/checkEmailExist'
+import userValidation from "../validation/userValidation";
 
 router.post('/login', userController.logIn)
+
+router.post(
+    '/register',
+    protectMiddleware.protect,
+    protectMiddleware.restrictTo('admin'),
+    userValidation.userValidate, 
+    userController.createUser
+    )
 
 router.get(
     '/',

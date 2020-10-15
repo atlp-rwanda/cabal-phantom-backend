@@ -1,6 +1,11 @@
 import Model from '../database/models'
 import bcrypt from 'bcryptjs';
 import { signinToken } from '../utils/jwt';
+import pwd from "../utils/generatePassword"
+import emails from "../utils/email.js"
+import bcrypts from "bcrypt";
+import defaultRole from '../utils/generateDefaultRole'
+
 
 class userController {
     static async getAllUsers(req, res) {
@@ -53,6 +58,45 @@ class userController {
         } catch (error) {
             return res.status(500).json({ message: error })
         }
+    }
+
+    static async createUser(req,res){
+        try {
+            const generatedPassword = pwd.generatePassword()
+            const hashed = await bcrypts.hash(generatedPassword,12) 
+            const role= await defaultRole.generateDefault()   
+            const theUser = {
+              name: req.body.name,
+              email:req.body.email,
+              password:hashed,
+              role:role,
+              birthdate: req.body.birthdate,
+              gender: req.body.gender
+              };
+      
+              const userEmail  = req.body.email;
+              
+            const doesExist = await Model.User.findOne({
+                where: {email:userEmail}
+            });
+              if(doesExist){
+                res.status(409).json({
+                  message:res.__('User with the provided email is already registered.')
+                })
+                return false
+              }
+              const user = await Model.User.create(theUser); 
+              const Options ={
+                email:req.body.email,
+                password:generatedPassword,
+              }
+              emails.sendEmail(Options)     
+            return res.status(201).json({
+              user
+            });
+          } catch (error) {
+            return res.status(500).json({message:"Unable to register user"})
+          }
     }
 }
 

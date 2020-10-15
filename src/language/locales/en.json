@@ -17,5 +17,19 @@
 	"email is required": "email is required",
 	"role is required": "role is required",
 	"role must be one of [driver, operator, admin]": "role must be one of [driver, operator, admin]",
-	"role must be one of [normal, driver, operator, admin]": "role must be one of [normal, driver, operator, admin]"
+	"role must be one of [normal, driver, operator, admin]": "role must be one of [normal, driver, operator, admin]",
+	"User with the provided email is already registered.": "User with the provided email is already registered.",
+	"provide valid email": "provide valid email",
+	"Name must be atleast four characters": "Name must be atleast four characters",
+	"birthdate must be atleast six characters": "birthdate must be atleast six characters",
+	"date of birth must be provided": "date of birth must be provided",
+	"Name must not be empty": "Name must not be empty",
+	"name is required": "name is required",
+	"Email must not be empty": "Email must not be empty",
+	"gender should be not more 8 characters": "gender should be not more 8 characters",
+	"gender is required": "gender is required",
+	"gender must not be empty characters": "gender must not be empty characters",
+	"birthdate is required": "birthdate is required",
+	"date of birth must be atleast six characters": "date of birth must be atleast six characters",
+	"date of birth should be in a format yyyy-mm-dd": "date of birth should be in a format yyyy-mm-dd"
 }

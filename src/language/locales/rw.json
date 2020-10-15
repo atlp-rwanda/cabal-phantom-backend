@@ -15,5 +15,14 @@
 	"email is required": "imeri irakenewe",
 	"role is required": "role irakenewe",
 	"role must be one of [driver, operator, admin]": "role igomba kuba imwe muri izi [driver, operator, admin]",
-	"user doesn't exist": "ukoresha app ntabonetse" 
+	"user doesn't exist": "ukoresha app ntabonetse",
+	"role must be one of [normal, driver, operator, admin]": "role must be one of [normal, driver, operator, admin]",
+	"User with the provided email is already registered.": "Umukoresha hamwe na imeri yatanzwe yamaze kwiyandikisha.",
+	"provide valid email": "tanga imeri yemewe",
+	"Name must be atleast four characters": "Izina rigomba kuba byibuze inyuguti enye",
+	"birthdate must be atleast six characters": "itariki y'amavuko igomba kuba byibuze inyuguti esheshatu",
+	"date of birth must be provided": "itariki y'amavuko igomba gutangwa",
+	"date of birth must be atleast six characters": "date of birth must be atleast six characters",
+	"Name must not be empty":"Izina ntirigomba kubamo ubusa",
+	"date of birth should be in a format yyyy-mm-dd": "itariki y'amavuko igomba kuba muburyo yyyy-mm-dd"
 }

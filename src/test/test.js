@@ -74,3 +74,18 @@ describe('/POST Login user', () => {
         });
   });
 });
+
+describe("Phantom testing", () => {
+  it("Should return a welcome message", done => {
+    chai
+      .request(app)
+      .get("/")
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        
+          expect(res.body.message).to.equals('Welcome to our phantom beginning');
+          done();
+        });
+    });
+});
+
