@@ -111,6 +111,42 @@
         }
       }
     },
+    "/api/v1/auth/register":{
+      "post": {
+        "tags": ["User"],
+        "summary": " Create a new  user",
+        "description": "Create user",
+        "operationId": "createUser",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string",
+            "description": "token"
+          },
+          {
+            "in": "body",
+            "name": "user",
+            "description": "input name,email,birthdate and gender",
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "201": {
+            "description": "User created successfully"
+          },
+          "400": {
+            "description": "Valid inputs are required"
+          }
+        }
+      }
+    },
     "/api/v1/auth/updateuser": {
       "patch": {
         "tags": ["User"],
@@ -172,7 +208,7 @@
           "role": {
             "type": "string"
           },
-          "birthday": {
+          "birthdate": {
             "type": "integer",
             "description": "User Role",
             "format": "int32"
