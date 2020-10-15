@@ -2,7 +2,7 @@ module.exports = {
   up: (queryInterface) => queryInterface.bulkInsert(
     'Buses',
     [
-      {
+        {
         plate: "RAB345E",
         company: "Royal",
         seats: 29,
@@ -33,6 +33,7 @@ module.exports = {
         type: 'coaster',
         location: 'kacyiru',
         userId:3,
+        routeId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
       },

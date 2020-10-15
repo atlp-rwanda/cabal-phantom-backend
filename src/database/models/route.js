@@ -6,5 +6,14 @@ module.exports = (sequelize, DataTypes) => {
     destination: DataTypes.STRING,
     price: DataTypes.INTEGER
   }, {});
+
+    Route.associate = (models) => {
+    // associations can be defined here
+    Route.hasMany(models.Bus, {
+      foreignKey: 'routeId',
+      as: 'Route',
+      onDelete: 'CASCADE',
+    });
+  };
   return Route;
 };

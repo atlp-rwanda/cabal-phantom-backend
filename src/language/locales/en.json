@@ -31,7 +31,6 @@
 	"gender must not be empty characters": "gender must not be empty characters",
 	"birthdate is required": "birthdate is required",
 	"date of birth must be atleast six characters": "date of birth must be atleast six characters",
-	"date of birth should be in a format yyyy-mm-dd": "date of birth should be in a format yyyy-mm-dd",
 	"can't get buses": "Error occurred while retrieving buses",
 	"can't add new bus": "Error occurred while adding new bus",
 	"not found": "is not found",
@@ -116,5 +115,15 @@
 	"price should be integer number": "price should be integer number",
 	"price should be greater than 100": "price should be greater than 100",
 	"price should be greater than or equal to 100": "price should be greater than or equal to 100",
-	"status should be ['moving', 'at rest', 'stuck in traffic']": "status should be ['moving', 'at rest', 'stuck in traffic']"
+	"status should be ['moving', 'at rest', 'stuck in traffic']": "status should be ['moving', 'at rest', 'stuck in traffic']",
+	"date of birth should be in a format yyyy-mm-dd": "date of birth should be in a format yyyy-mm-dd",
+	"origin should be not less than 4 characters": "origin should be not less than 4 characters",
+	"origin is required": "origin is required",
+	"origin must not be empty": "origin must not be empty",
+	"destination should be not less than 4 characters": "destination should be not less than 4 characters",
+	"destination is required": "destination is required",
+	"destination must not be empty": "destination must not be empty",
+	"Error happen during retreiving buses in your route": "Route you are searching does not exist",
+	"This route  does not exist": "This route  does not exist",
+	"this router doesn't exist in system":"this router doesn't exist in system"
 }

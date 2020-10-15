@@ -139,7 +139,48 @@ router.get(
     protectMiddleware.restrictTo('operator', 'admin'),
     busController.getAssignedBuses
 )
-   
+
+     /** 
+ * @swagger
+ * 
+ * /api/v1/buses/route?origin={origin}&destination={destination}:
+ *  get: 
+ *   summary: View a list of buses in route
+ *   description: View Buses in your route
+ *   tags: 
+ *   - Bus
+ *   parameters: 
+ *    - in: query
+ *      name: origin
+ *      required: true
+ *      type: string
+ *      default: Kimironko
+ *      description: Enter you origin
+ *    - in: query
+ *      name: destination
+ *      required: true
+ *      type: string
+ *      default: Nyabugogo
+ *      description: Enter you destination
+ *   responses:
+ *    200: 
+ *     description: Retreaving Buses in  your route Successfully
+ *    401:
+ *     description: Unauthorized
+ *    400: 
+ *     description: Invalid inputs
+ *    500: 
+ *     description: Incorrect information 
+ */
+
+router
+    .route('/route')
+    .get(
+        busValidation.viewBusValidation,
+        checkExist.checkRouteExist,
+        busController.viewListOfBuses
+    )
+ 
 
 /** 
  * @swagger
@@ -327,10 +368,10 @@ router.patch(
     protectMiddleware.restrictTo('operator', 'admin'),
     checkExist.ckeckUserEmail,
     checkExist.checkAssignment,
-     busController.unassignDriver
+    busController.unassignDriver
  )
  
- 
+
 
 export default router;
 

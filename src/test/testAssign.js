@@ -35,7 +35,6 @@ describe('PHANTOM API - TEST ASSIGNMENT', () => {
     });
 
     it('it should not assign driver due to incorrect role', (done) => {
-
         chai.request(app)
             .patch('/api/v1/buses/assigndriver/' + busId)
             .set("Authorization", userMock.token.operator)
@@ -49,9 +48,8 @@ describe('PHANTOM API - TEST ASSIGNMENT', () => {
 
 
     it('it should  assign driver', (done) => {
-        let Id = 1
         chai.request(app)
-            .patch('/api/v1/buses/assigndriver/' + Id)
+            .patch('/api/v1/buses/assigndriver/' + busId)
             .set("Authorization", userMock.token.operator)
             .send({ "email": "happyka52@gmail.com" })
             .end((err, res) => {
@@ -73,7 +71,7 @@ describe('PHANTOM API - TEST ASSIGNMENT', () => {
     });
 
     it('it should not assign driver if bus is already assigned', (done) => {
-        let Id = 1
+        let Id = 2
         chai.request(app)
             .patch('/api/v1/buses/assigndriver/' + Id)
             .set("Authorization", userMock.token.operator)

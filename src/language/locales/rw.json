@@ -113,5 +113,13 @@
   "price should be required": "igiciro kirakenewe",
   "price should be a number": "igiciro kigomba kuba umubare",
   "price should be integer number": "igiciro kigomba kuba umubare",
-  "price should be greater than or equal to 100": "igiciro kigomba kuba hejuru cyangwa kingana n'ijana"
+  "price should be greater than or equal to 100": "igiciro kigomba kuba hejuru cyangwa kingana n'ijana",
+	"origin should be not less than 4 characters": "Iyo uri kuva ntihagomba kugirwa ninyuguti zirihasi yenye",
+	"origin is required": "Iyo uri kuva harakenewe",
+	"origin must not be empty": "l'origine ne doit pas être vide",
+	"destination should be not less than 4 characters": "la destination ne doit pas comporter moins de 4 caractères",
+	"destination is required": "la destination est requise",
+	"destination must not be empty": "la destination ne doit pas être vide",
+  "Error happen during retreiving buses in your route": "L'itinéraire que vous recherchez n'existe pas",
+  "this router doesn't exist in system":"Umuhanda muri gushaka ntawo dufite muri sisiteme yacu"
 }

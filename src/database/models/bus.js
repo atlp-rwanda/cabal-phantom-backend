@@ -7,16 +7,24 @@ module.exports = (sequelize, DataTypes) => {
     category: DataTypes.STRING,
     type: DataTypes.STRING,
     location: DataTypes.STRING,
-    userId: DataTypes.INTEGER
+    userId: DataTypes.INTEGER,
+    routeId: DataTypes.INTEGER
   }, {});
+  
   Bus.associate = function(models) {
- 
+    
     Bus.belongsTo(models.User, {
       foreignKey: 'userId',
       as: 'driver',
       onDelete: 'CASCADE',
-    })
+    });
+
+    Bus.belongsTo(models.Route, {
+      foreignKey: 'routeId',
+      as: 'route',
+      onDelete: 'CASCADE',
+    });
+
   };
   return Bus;
 };
-

@@ -1,13 +1,14 @@
 import Model from '../database/models'
 import { paginate } from 'paginate-info'
 
+const {Route} = Model
 class routeController {
     static async createNewRoute(req, res) {
         try {
             const { routeID, origin, destination, price } = req.body
             const name = `${req.body.origin} - ${req.body.destination}`
 
-            const route = await Model.Route.create({
+            const route = await Route.create({
                 routeID, name, origin, destination, price
             });
             return res.status(201).json({
@@ -24,7 +25,7 @@ class routeController {
         try {
             const { page = 1, limit = 10 } = req.query
             const offset = (page - 1) * limit
-            const { rows, count } = await Model.Route.findAndCountAll({
+            const { rows, count } = await Route.findAndCountAll({
                 page, limit, offset,
                 order: [
                     ['id', 'asc']
@@ -50,7 +51,7 @@ class routeController {
 
     static async getRoute(req, res) {
         try {
-            const route = await Model.Route.findOne({ where: { id: req.params.id } })
+            const route = await Route.findOne({ where: { id: req.params.id } })
             return res.status(200).json({ route })
         } catch (error) {
             return res.status(500).json({
@@ -64,12 +65,12 @@ class routeController {
             const { routeID, origin, destination, price } = req.body
             const name = `${req.body.origin} - ${req.body.destination}`
 
-            const updated = await Model.Route.update(
+            const updated = await Route.update(
                 { routeID, name, origin, destination, price },
                 { where: { id: req.params.id } })
 
             if (updated) {
-                const updatedRoute = await Model.Route.findByPk(req.params.id)
+                const updatedRoute = await Route.findByPk(req.params.id)
                 return res.status(200).json({
                     updatedRoute
                 })
@@ -83,7 +84,7 @@ class routeController {
 
     static async deleteRoute(req, res) {
         try {
-            await Model.Route.destroy({ where: { id: req.params.id } })
+            await Route.destroy({ where: { id: req.params.id } })
             return res.status(200).json({
                 message: res.__("Deleted successfully")
             })
