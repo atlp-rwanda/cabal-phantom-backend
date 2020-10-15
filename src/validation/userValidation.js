@@ -27,4 +27,3 @@ const userValidate = (req, res, next) => {
     next();
 }
 export default userValidate
-

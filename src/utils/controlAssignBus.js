@@ -1,4 +1,4 @@
-import Model from '../database/models'
+//import Model from '../database/models'
 import emails from "../utils/sendEmail"
 
 exports.controlAssignment = (Options, bus, res) => {

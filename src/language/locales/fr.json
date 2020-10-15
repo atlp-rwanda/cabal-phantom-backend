@@ -114,5 +114,13 @@
   "price should be required": "le prix doit être requise",
   "price should be a number": "le prix doit être un nombre",
   "price should be integer number": "le prix doit être un nombre entier",
-  "price should be greater than or equal to 100": "le prix doivent être supérieurs ou égaux à 100"
+  "price should be greater than or equal to 100": "le prix doivent être supérieurs ou égaux à 100",
+	"origin should be not less than 4 characters": "l'origine ne doit pas comporter moins de 4 caractères",
+	"origin is required": "l'origine est requise",
+	"origin must not be empty": "l'origine ne doit pas être vide",
+	"destination should be not less than 4 characters": "la destination ne doit pas comporter moins de 4 caractères",
+	"destination is required": "la destination est requise",
+	"destination must not be empty": "la destination ne doit pas être vide",
+  "Error happen during retreiving buses in your route": "L'itinéraire que vous recherchez n'existe pas",
+  "this router doesn't exist in system":"ce routeur n'existe pas dans le système"
 }

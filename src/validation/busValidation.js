@@ -42,3 +42,20 @@ exports.busValidate = (req, res, next) => {
     next();
 }
 
+exports.viewBusValidation = (req,res,next) =>{
+    const schema = Joi.object({
+        origin: Joi.string().required().min(4).messages({
+            "string.min":res.__("origin should be not less than 4 characters"),
+            "any.required": res.__('origin is required'),
+            "string.empty": res.__('origin must not be empty')
+        }),
+        destination: Joi.string().required().min(4).messages({
+            "string.min":res.__("destination should be not less than 4 characters"),
+            "any.required": res.__('destination is required'),
+            "string.empty": res.__('destination must not be empty')
+        })
+    })
+    const results = schema.validate(req.query);
+    if (results.error) return res.status(400).json({ message: results.error.details[0].message });
+    next();
+}

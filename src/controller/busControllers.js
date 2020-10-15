@@ -6,14 +6,14 @@ import controlAssign from '../utils/controlAssignBus'
 import Sequelize from 'sequelize'
 const Op = Sequelize.Op
 
-
+const {Bus,User} = Model
 class busController {
     static async createNewBus(req, res) {
         try {
             const { plate, company, seats, status, type, location } = req.body
             const category = helperFunction.classifyBus(req.body.seats)
 
-            const bus = await Model.Bus.create({
+            const bus = await Bus.create({
                 plate, company, seats, status, type, location, category
             });
             return res.status(201).json({
@@ -30,7 +30,7 @@ class busController {
         try {
             const { page = 1, limit = 10 } = req.query
             const offset = (page - 1) * limit
-            const { rows, count } = await Model.Bus.findAndCountAll({
+            const { rows, count } = await Bus.findAndCountAll({
                 page, limit, offset,
                 order: [
                     ['id', 'asc']
@@ -56,7 +56,7 @@ class busController {
 
     static async getBus(req, res) {
         try {
-            const bus = await Model.Bus.findAll({ where: { id: req.params.id } })
+            const bus = await Bus.findAll({ where: { id: req.params.id } })
             return res.status(200).json({ bus })
         } catch (error) {
             return res.status(500).json({
@@ -70,14 +70,14 @@ class busController {
             const { plate, company, seats, status, type, location } = req.body
             const category = helperFunction.classifyBus(req.body.seats)
 
-            const updated = await Model.Bus.update(
+            const updated = await Bus.update(
                 { plate, company, seats, status, type, location, category },
                 {
                     where: { id: req.params.id }
                 })
 
             if (updated) {
-                const updatedBus = await Model.Bus.findByPk(req.params.id)
+                const updatedBus = await Bus.findByPk(req.params.id)
                 return res.status(200).json({
                     updatedBus
                 })
@@ -90,7 +90,7 @@ class busController {
     }
 
     static async deleteBus(req, res) {
-        await Model.Bus.destroy({ where: { id: req.params.id } })
+        await Bus.destroy({ where: { id: req.params.id } })
         return res.status(200).json({
             message: res.__("Deleted successfully")
         })
@@ -133,12 +133,12 @@ class busController {
 
     static async unassignDriver(req, res) {
         try {
-            const updated = await Model.Bus.update({ userId: null },
+            const updated = await Bus.update({ userId: null },
                 { where: { id: req.params.id } }
             );
 
             if (updated) {
-                const bus = await Model.Bus.findOne({
+                const bus = await Bus.findOne({
                     where: { id: req.params.id },
                 });
 
@@ -159,11 +159,11 @@ class busController {
         try {
             const { page = 1, limit = 10 } = req.query
             const offset = (page - 1) * limit
-            const { rows, count } = await Model.Bus.findAndCountAll({
+            const { rows, count } = await Bus.findAndCountAll({
                 page, limit, offset,
                 where: { userId: { [Op.ne]: null } },
                 include: [{
-                    model: Model.User,
+                    model: User,
                     as: 'driver',
                     attributes: ["id", "name", "email"]
                 }],
@@ -188,6 +188,23 @@ class busController {
         }
     }
 
+    static async viewListOfBuses(req,res){
+        try {
+        const buses = await Bus.findAll({
+            where:{ routeId: req.route.id },
+            order: [ ['status', 'asc'] ]
+        })
+        return res.status(200).json({
+            buses
+        })
+            
+        } catch (error) {
+            res.status(500).json({
+                error:res.__('This route  does not exist')
+            })    
+        }
+
+    }
 }
 
 export default busController

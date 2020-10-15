@@ -29,6 +29,9 @@ module.exports = {
       userId: {
         type: Sequelize.INTEGER
       },
+      routeId: {
+        type: Sequelize.INTEGER,
+      },
       category: {
         type: Sequelize.STRING
       },
