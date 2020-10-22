@@ -40,5 +40,8 @@
 ### Running tests
 - Run `npm test` to run tests
 
+### Api Production Link
+[Production Link](https://phantom-cabal-staging.herokuapp.com)
+
 ### Api Documentation
 [Swagger Documentation](https://phantom-cabal-staging.herokuapp.com/api-docs)

@@ -11,6 +11,16 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
+
+      {
+        plate: "RAC123A",
+        company: "KBS",
+        seats: 40,
+        status: 'active',
+        category: 'medium',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
     ],
     {},
   ),
