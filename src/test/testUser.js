@@ -11,7 +11,7 @@ describe('Phantom API - User', () => {
         chai.request(app)
             .patch('/api/v1/auth/updateuser')
             .send(userMock.NotExistEmail)
-            .set("Authorization", "Bearer " + userMock.token.admin)
+            .set("Authorization", userMock.token.admin)
             .end((err, res) => {
                 expect(res.statusCode).to.equal(404);
                 done();
@@ -22,7 +22,7 @@ describe('Phantom API - User', () => {
         chai.request(app)
             .patch('/api/v1/auth/updateuser')
             .send(userMock.rightInput)
-            .set("Authorization", "Bearer " + userMock.token.admin)
+            .set("Authorization", userMock.token.admin)
             .end((err, res) => {
                 expect(res.statusCode).to.equal(200);
                 done();
@@ -32,7 +32,7 @@ describe('Phantom API - User', () => {
     it('It should return error if email is not valid', (done) => {
         chai.request(app)
             .patch('/api/v1/auth/updateuser')
-            .set("Authorization", "Bearer " + userMock.token.admin)
+            .set("Authorization", userMock.token.admin)
             .send(userMock.InvalidEmail)
             .end((err, res) => {
                 expect(res.statusCode).to.equal(400);
@@ -43,7 +43,7 @@ describe('Phantom API - User', () => {
     it('It should return error if email is not provided', (done) => {
         chai.request(app)
             .patch('/api/v1/auth/updateuser')
-            .set("Authorization", "Bearer " + userMock.token.admin)
+            .set("Authorization", userMock.token.admin)
             .send(userMock.requiredEmail)
             .end((err, res) => {
                 expect(res.statusCode).to.equal(400);
@@ -54,7 +54,7 @@ describe('Phantom API - User', () => {
     it('It should return error if role is not provided', (done) => {
         chai.request(app)
             .patch('/api/v1/auth/updateuser')
-            .set("Authorization", "Bearer " + userMock.token.admin)
+            .set("Authorization", userMock.token.admin)
             .send(userMock.requiredRole)
             .end((err, res) => {
                 expect(res.statusCode).to.equal(400);
@@ -65,7 +65,7 @@ describe('Phantom API - User', () => {
     it('It should return error if role not included', (done) => {
         chai.request(app)
             .patch('/api/v1/auth/updateuser')
-            .set("Authorization", "Bearer " + userMock.token.admin)
+            .set("Authorization", userMock.token.admin)
             .send(userMock.roleNotIncluded)
             .end((err, res) => {
                 expect(res.statusCode).to.equal(400);

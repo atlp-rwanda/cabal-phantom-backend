@@ -19,7 +19,7 @@ describe("Phantom API - Auth", () => {
     it('it should Not GET All Users without permission', (done) => {
         chai.request(app)
             .get('/api/v1/auth')
-            .set("Authorization", "Bearer " + userMock.token.operator)
+            .set("Authorization", userMock.token.operator)
             .end((err, res) => {
                 expect(res.statusCode).to.equal(403);
                 done();
@@ -30,7 +30,7 @@ describe("Phantom API - Auth", () => {
         //change rw to lw
         chai.request(app)
             .get('/api/v1/auth')
-            .set("Authorization", "Bearer " + userMock.token.NotCorrect)
+            .set("Authorization", userMock.token.NotCorrect)
             .end((err, res) => {
                 expect(res.statusCode).to.equal(403);
                 done();
@@ -40,7 +40,7 @@ describe("Phantom API - Auth", () => {
     it('it should GET All Users', (done) => {
         chai.request(app)
             .get('/api/v1/auth')
-            .set("Authorization", "Bearer " + userMock.token.admin)
+            .set("Authorization", userMock.token.admin)
             .end((err, res) => {
                 expect(res.body).to.be.an('object');
                 done();
