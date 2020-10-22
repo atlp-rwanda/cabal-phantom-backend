@@ -1,3 +1,3 @@
 exports.token = {
-    oparator:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjA0Mzk3MTU5LCJleHAiOjE2MDQ0ODM1NTl9.7-y_FsyFqs1T6r2XUIO-vtv_sVPlJJP505nk7K-kT8w"
+    oparator:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjA0NDg3MTUyLCJleHAiOjE2MDQ1NzM1NTJ9.n0IVpzr94Xm6ST5a3Ir5cK_CnDmUW-1nAwhs9Gd1YY0"
 }

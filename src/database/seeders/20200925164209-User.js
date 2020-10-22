@@ -31,7 +31,30 @@ module.exports = {
         gender: "male",
         createdAt: new Date(),
         updatedAt: new Date(),
-      }
+      },
+
+   {
+        name: 'Ncuti Xavier',
+        email: 'happyka52@gmail.com',
+        password: '$2a$10$I5iHDBzgymJ7lNVFgOKr1ec65/OX/lqb66mZ5xsEJhhVcURYFmwYG',
+        birthdate: '1998-10-23',
+        gender: 'female',
+        role: 'driver',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+     
+      {
+        name: 'Ncuti Xavier',
+        email: 'karigirwa@gmail.com',
+        password: '$2a$10$I5iHDBzgymJ7lNVFgOKr1ec65/OX/lqb66mZ5xsEJhhVcURYFmwYG',
+        birthdate: '1998-10-23',
+        gender: 'female',
+        role: 'driver',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+
     ],
     {},
   ),

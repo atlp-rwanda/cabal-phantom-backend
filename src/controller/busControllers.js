@@ -1,6 +1,12 @@
 import Model from '../database/models'
 import helperFunction from '../utils/generateDefaultRole'
 import { paginate } from 'paginate-info'
+import emails from "../utils/sendEmail"
+import message from '../utils/messageMocks'
+import controlAssign from '../utils/controlAssignBus'
+import Sequelize from 'sequelize'
+const Op = Sequelize.Op
+
 
 class busController {
     static async createNewBus(req, res) {
@@ -87,6 +93,99 @@ class busController {
             message: res.__("Deleted successfully")
         })
     }
+    static async assignDriver(req,res){
+       
+        try{
+            const user = await Model.User.findOne({
+                where: { email:req.body.email},
+              });
+          
+           
+            const updated = await Model.Bus.update({ userId:user.id },
+                        { where: {id:req.params.id } }
+                     );
+                     if (updated) {
+                        const bus= await Model.Bus.findOne({
+                                where: { id:req.params.id },
+                                include: [{
+                                    model:Model.User,
+                                    as:'driver',
+                                    attributes:["id","name","email"]
+                                }]
+                        });
+
+                        const Options = {
+                            userEmail:req.body.email,
+                            subject:'Phantom assignment',
+                            message:message.assignMessage(user.name,bus.plate)
+                        }
+
+                        controlAssign.controlAssignment(Options, bus, res)
+                    }
+            
+        }catch (error) {
+            return res.status(500).json({ message: error })
+        }
+    }
+
+    static async unassignDriver(req,res){
+        try {
+            const updated = await Model.Bus.update({ userId:null },
+                { where: {id:req.params.id } }
+            );
+
+            if (updated) {
+                const bus = await Model.Bus.findOne({
+                        where: { id:req.params.id },
+                });
+
+                const Options ={
+                    userEmail:req.body.email,
+                    subject:'Phantom Unassignment',
+                    message:message.unassignMessage(req.user.name,bus.plate)    
+                }
+
+                controlAssign.controlAssignment(Options, bus, res)
+            }
+        } catch (error) {
+            return res.status(500).json({ message: res.__('can not unassign') })
+        }
+    }
+
+    static async getAssignedBuses(req, res) {
+        try {
+            const { page = 1, limit = 10 } = req.query
+            const offset = (page - 1) * limit
+            const { rows, count } = await Model.Bus.findAndCountAll({
+                page, limit, offset,
+                where: { userId: { [Op.ne]: null } },
+                include:[{
+                    model:Model.User,
+                    as:'driver',
+                    attributes:["id","name","email"]
+                 }],
+                order: [
+                    ['id', 'asc']
+                ]
+            });
+            const pagination = paginate(page, count, rows, limit);
+            if (offset >= count) {
+                res.status(404).json({
+                    message: res.__("page not found")
+                })
+            }
+            return res.status(200).json({
+                pagination,
+                rows
+            })
+        } catch (error) {
+            res.status(500).json({
+                message: res.__("can't get buses")
+            })
+        }
+    }
+
 }
 
 export default busController
+

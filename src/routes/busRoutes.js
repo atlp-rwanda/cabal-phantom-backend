@@ -2,7 +2,9 @@ import busController from '../controller/busControllers'
 import busValidation from '../validation/busValidation'
 import checkExist from '../middleware/checkExist'
 import protectMiddleware from '../middleware/protectRoutes'
+import userValidation from '../validation/userValidation'
 import express from "express"
+import emailValidate from '../validation/emailValidate'
 
 const router = express()
 
@@ -96,6 +98,45 @@ router
         checkExist.checkPlate,
         busController.createNewBus
     )
+
+/** 
+ * @swagger
+ * 
+ * /api/v1/buses/assignedbuses?page={page}&limit={limit}:
+ *  get: 
+ *    summary: Get assigned bus by page and limit
+ *    description: Retrieve assigned bus by page and limit
+ *    tags:
+ *    - Assign driver to bus
+ *    parameters:
+ *    - in: header
+ *      name: Authorization
+ *      required: true
+ *      type: string
+ *      description: token to authorize
+ *    - in: path
+ *      name: page
+ *      required: true
+ *      type: integer
+ *      default: 1
+ *      description: Enter page number
+ *    - in: path
+ *      name: limit
+ *      required: true
+ *      type: integer
+ *      default: 10
+ *      description: Enter limit number of buses per page
+ *    responses: 
+ *     200: 
+ *      description: Retrieved Successfully
+ */
+router.get(
+    '/assignedbuses',
+    protectMiddleware.protect,
+    protectMiddleware.restrictTo('operator', 'admin'),
+    busController.getAssignedBuses
+)
+   
 
 /** 
  * @swagger
@@ -197,5 +238,96 @@ router
         checkExist.checkID,
         busController.deleteBus
     )
+/** 
+ * @swagger
+ * 
+ * /api/v1/buses/assigndriver/{id}:
+ *  patch: 
+ *    summary: Assign driver to bus
+ *    description: Return assigned bus
+ *    tags:
+ *    - Assign driver to bus
+ *    parameters:
+ *    - in: header
+ *      name: Authorization
+ *      required: true
+ *      type: string
+ *      description: token to authorize
+ *    - in: path
+ *      name: id
+ *      required: true
+ *      type: integer
+ *      description: Enter bus id
+ *    - in: body
+ *      name: Bus
+ *      description: Enter email of driver to be assigned to bus
+ *      schema: 
+ *       type: object 
+ *       properties:
+ *        email: 
+ *         type: string
+ *    responses: 
+ *     200: 
+ *      description: Assigned Successfully
+ */
+    
+router.patch(
+    '/assigndriver/:id',
+    protectMiddleware.protect,
+    protectMiddleware.restrictTo('operator', 'admin'),
+    emailValidate,
+    checkExist.ckeckUserEmail,
+    checkExist.checkRole,
+    checkExist.checkDriverAssigned,
+    checkExist.checkID,
+    checkExist.checkAssigned,
+    busController.assignDriver
+ )
 
-export default router
+/** 
+ * @swagger
+ * 
+ * /api/v1/buses/unassigndriver/{id}:
+ *  patch: 
+ *    summary: Unassign driver to bus
+ *    description: Return unassigned bus
+ *    tags:
+ *    - Assign driver to bus
+ *    parameters:
+ *    - in: header
+ *      name: Authorization
+ *      required: true
+ *      type: string
+ *      description: token to authorize
+ *    - in: path
+ *      name: id
+ *      required: true
+ *      type: integer
+ *      description: Enter bus id
+ *    - in: body
+ *      name: Bus
+ *      description: Enter email of driver to be unassigned to bus
+ *      schema: 
+ *       type: object 
+ *       properties:
+ *        email: 
+ *         type: string
+ *    responses: 
+ *     200: 
+ *      description: Unassigned Successfully
+ */
+
+ router.patch(
+    '/unassigndriver/:id',
+    emailValidate,
+    protectMiddleware.protect,
+    protectMiddleware.restrictTo('operator', 'admin'),
+    checkExist.ckeckUserEmail,
+    checkExist.checkAssignment,
+     busController.unassignDriver
+ )
+ 
+ 
+
+export default router;
+

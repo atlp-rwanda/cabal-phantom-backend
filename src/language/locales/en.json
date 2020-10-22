@@ -68,11 +68,9 @@
 	"internalServerError": "This service is currently unavailable. Developers at Phantom are maintaining it",
 	"password is required": "password is required",
 	"password is not allowed to be empty": "password is not allowed to be empty",
-	"Password should have a minimum length of {#limit}": "Password should have a minimum length of {#limit}",
 	"Password should have a minimum length of 5 characters": "Password should have a minimum length of 5 characters",
 	"passwords must match": "passwords must match",
 	"Password is required": "Password is required",
-	"!!Passwords do not match": "!!Passwords do not match",
 	"Confirm Password should be matching to password provided": "Confirm Password should be matching to password provided",
 	"Check in your email a link for changing password": "Check in your email a link for changing password",
 	"email is not registered": "email is not registered",
@@ -82,5 +80,15 @@
 	"gender must be one of [male, female, I rather not say]": "gender must be one of [male, female, I rather not say]",
 	"You can't update email": "You can't update email",
 	"You have to use a registered email in order to update your profile": "You have to use a registered email in order to update your profile",
-	"error sending email": "error sending email"
+	"error sending email": "error sending email",
+	"The user is not a driver": "The user is not a driver",
+	"The user with this email does not exist": "The user with this email does not exist",
+	"user is not driver": "user is not driver",
+	"Driver is not found": "Driver is not found",
+	"already assigned": "already assigned",
+	"Email is not found": "Email is not found",
+	"user is not assigned to bus": "user is not assigned to bus",
+	"Driver is already assigned": "Driver is already assigned",
+	"can  not unassign": "can  not unassign",
+	"can not unassign": "can not unassign"
 }

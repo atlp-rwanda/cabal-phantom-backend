@@ -35,7 +35,7 @@
     "nodemailer": "^6.4.14",
     "nyc": "^15.1.0",
     "paginate-info": "^1.0.4",
-    "pg": "^8.3.3",
+    "pg": "^8.4.1",
     "pg-hstore": "^2.3.3",
     "sequelize": "^6.3.5",
     "sequelize-cli": "^6.2.0",
