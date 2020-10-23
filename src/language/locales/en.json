@@ -31,5 +31,6 @@
 	"gender must not be empty characters": "gender must not be empty characters",
 	"birthdate is required": "birthdate is required",
 	"date of birth must be atleast six characters": "date of birth must be atleast six characters",
-	"date of birth should be in a format yyyy-mm-dd": "date of birth should be in a format yyyy-mm-dd"
+	"date of birth should be in a format yyyy-mm-dd": "date of birth should be in a format yyyy-mm-dd",
+	"Unable to register user.": "Unable to register user."
 }

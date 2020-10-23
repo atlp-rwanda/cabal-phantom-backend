@@ -4,7 +4,8 @@ import userController from '../controller/userControllers'
 import protectMiddleware from '../middleware/protectRoutes'
 import roleValidator from '../validation/roleValidation'
 import checkEmailExists from '../middleware/checkEmailExist'
-import userValidation from "../validation/userValidation";
+import userValidation from "../validation/userValidation"
+import updateValidation from "../validation/userUpdatevalidation"
 
 router.post('/login', userController.logIn)
 
@@ -31,5 +32,16 @@ router.patch(
     checkEmailExists.checkIfEmailExists,
     userController.updateUser
 )
+
+router.patch(
+    "/updateProfile",
+    protectMiddleware.protect,
+    updateValidation.userValidate, 
+    userController.updateUserSelf
+)
+router.get(
+    '/profiles/:userId', 
+    userController.getUserById
+    );
 
 export default router;

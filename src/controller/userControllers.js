@@ -95,9 +95,51 @@ class userController {
               user
             });
           } catch (error) {
-            return res.status(500).json({message:"Unable to register user"})
+            return res.status(500).json({
+              message:res.__('Unable to register user.')
+            })
           }
     }
+
+
+    static async getUserById(req, res){
+        try {
+          const { userId } = req.params;
+          const user = await Model.User.findOne({
+            where: { id: userId } ,
+            attributes: {
+                exclude: ['password']
+              }      
+          });
+          if (user) {
+            return res.status(200).json({user});
+          }
+          return res.status(404).json({
+            message:res.__('User with the specified id is not found.')
+          })
+        } catch (error) {
+          return res.status(500).send(error.message);
+        }
+      }
+
+     static async updateUserSelf(req, res){
+        try {
+          const [ updated ] = await Model.User.update(req.body, {
+            where: { email: req.user.email }
+          });
+          if (updated) {
+            const updatedUser = await Model.User.findOne({ where: { email: req.user.email },
+              attributes: {
+                exclude: ['password']
+              } 
+            });
+            return res.status(200).json({ user: updatedUser })
+          }
+          throw new Error('User not found');
+        } catch (error) {
+          return res.status(500).send(error.message);
+        }
+      }
 }
 
 export default userController

@@ -24,5 +24,12 @@
 	"date of birth must be provided": "itariki y'amavuko igomba gutangwa",
 	"date of birth must be atleast six characters": "date of birth must be atleast six characters",
 	"Name must not be empty":"Izina ntirigomba kubamo ubusa",
-	"date of birth should be in a format yyyy-mm-dd": "itariki y'amavuko igomba kuba muburyo yyyy-mm-dd"
+	"name is required": "Izina rirakenewe",
+	"Email must not be empty": "Imeri ntigomba kuba irimo ubusa",
+	"gender should be not more 8 characters": "igitsina ntikigomba kuba kirimo inyuguti zirenga 8",
+	"gender is required": "igitsina ni itegeko",
+	"gender must not be empty characters": "igitsina ntibugomba kuba inyuguti zubusa",
+	"birthdate is required": "itariki y'amavuko ni itegeko",
+	"Unable to register user.": "Ntushobora kwandikisha umukoresha"
 }
+

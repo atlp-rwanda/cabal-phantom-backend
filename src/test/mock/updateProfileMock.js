@@ -1,0 +1,3 @@
+exports.token = {
+    oparator:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjAzODA3ODEzLCJleHAiOjE2MDM4OTQyMTN9.a1a9s6dMP80Gh3VaKLerKDiJCMmeUdiAHgrzp2Mmq7o"
+}

@@ -23,5 +23,14 @@
 	"birthdate must be atleast six characters": "la date de naissance doit comporter au moins six caractères",
 	"date of birth must be provided": "la date de naissance doit être fournie",
 	"Name must not be empty":"Le nom ne doit pas être vide",
-	"date of birth should be in a format yyyy-mm-dd": "la date de naissance doit être au format aaaa-mm-jj"
+	"date of birth should be in a format yyyy-mm-dd": "la date de naissance doit être au format aaaa-mm-jj",
+	"name is required": "Le nom est requis",
+	"Email must not be empty": "L'e-mail ne doit pas être vide",
+	"gender should be not more 8 characters": "le sexe ne doit pas comporter plus de 8 caractères",
+	"gender is required": "le sexe est obligatoire",
+	"gender must not be empty characters": "le sexe ne doit pas être des caractères vides",
+	"birthdate is required": "la date de naissance est obligatoire",
+	"date of birth must be atleast six characters": "la date de naissance doit comporter au moins six caractères",
+	"Unable to register user.": "Impossible d'enregistrer l'utilisateur."
 }
+
