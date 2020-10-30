@@ -27,12 +27,10 @@ exports.sendEmail = async options  => {
         `
     }
 
-    await transporter.sendMail(mailOptions, (error, info) => {
+    await transporter.sendMail(mailOptions, (error) => {
         if (error) {
-            console.log(error);
             return false
         } else {
-            console.log('Email sent: ' + info.response);
             return true
         }
     })

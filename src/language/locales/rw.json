@@ -75,6 +75,7 @@
 	"email is not registered": "Imeli ushyizemo ntago Tuyizi",
 	"confirm password is required": "Insubira jambo ryi ibanga rirakenewe",
   "Token is required": "Token Irakenewe",
-  "Invalid link": "Link yanyu yarangiye mwatinze kuyikoresha"
-
+  "Invalid link": "Link yanyu yarangiye mwatinze kuyikoresha",
+  "gender must be one of [male, female, I rather not say]": "jenda igomba kuba imwe muri izi [male, female, I rather not say]",
+  "You have to use a registered email in order to update your profile": "Ugomba gukoresha imeri yanditse kugirango ubashe kuvugurura umwirondoro wawe"
 }

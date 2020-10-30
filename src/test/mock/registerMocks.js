@@ -10,3 +10,11 @@ exports.nameNotFound={
     "birthdate": "1978-01-01",
     "gender": "male"
 }
+exports.nameIsEmpty={
+  "name":""
+}
+
+exports.invalidEmail={
+  "email":"niyisvbsa@gmail.com",
+  "gender":"male"
+}

@@ -22,6 +22,16 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
+      {
+        name: "Niyiragira Gerard",
+        email: "niyiragiragerard@gmail.com",
+        password: "$2b$12$uWtrBIWu.QWEBahtvUPTiOvARAJHV.1f/Clijqsl.kr/QOr5mZTaG",
+        role: "operator",
+        birthdate: "1890-02-28T21:49:40.000Z",
+        gender: "male",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      }
     ],
     {},
   ),

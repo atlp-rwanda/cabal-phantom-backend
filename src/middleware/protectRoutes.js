@@ -7,7 +7,6 @@ exports.protect = async (req, res, next) => {
     if (req.headers.authorization) {
         token = req.headers.authorization
     }
-    console.log(token)
     if (!token) {
         return next(
             res.status(401).json({

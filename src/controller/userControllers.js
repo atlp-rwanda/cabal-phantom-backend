@@ -8,9 +8,11 @@ import bcrypts from "bcrypt";
 import defaultRole from '../utils/generateDefaultRole';
 import messages from '../utils/messageMocks'
 
+const {User}= Model
+
 class userController {
     static async getAllUsers(req, res) {
-        const users = await Model.User.findAll()
+        const users = await User.findAll()
         res.status(200).json({
             users
         })
@@ -24,7 +26,7 @@ class userController {
             })
         }
 
-        const user = await Model.User.findOne({
+        const user = await User.findOne({
             where: {
                 email
             }
@@ -48,12 +50,12 @@ class userController {
 
     static async updateUser(req, res) {
         try {
-            const updated = await Model.User.update({ role: req.body.role },
+            const updated = await User.update({ role: req.body.role },
                 { where: { email: req.body.email } }
             );
 
             if (updated) {
-                const userExist = await Model.User.findOne({ where: { email: req.body.email } });
+                const userExist = await User.findOne({ where: { email: req.body.email } });
                 return res.status(200).json({ user: userExist });
             }
         } catch (error) {
@@ -77,7 +79,7 @@ class userController {
       
               const email  = req.body.email;
               
-            const doesExist = await Model.User.findOne({
+            const doesExist = await User.findOne({
                 where: {email}
             });
               if(doesExist){
@@ -86,7 +88,7 @@ class userController {
                 })
                 return false
               }
-              const user = await Model.User.create(theUser); 
+              const user = await User.create(theUser); 
               const options ={
                   userEmail:`${email}`,
                   subject: 'Phantom Registration Successful',
@@ -105,7 +107,7 @@ class userController {
     static async forgetPassword(req, res) {
         try {
             const {email} = req.body;        
-        const user = await Model.User.findOne({  
+        const user = await User.findOne({  
             where:{
             email
             }
@@ -142,18 +144,10 @@ class userController {
       try {
          const { password, confirmPassword } = req.body
         
-        const url  = req.params;
-        console.log('url=',url)
-        const token = url.token
-        console.log('token=',token)
-        const payload = decode(token);
+        const {token}  = req.params;
+        const {email} = decode(token);
 
-        
-        console.log('payload=',payload)
-        const email  = payload.email;
-        console.log("email=",email)
-
-        const  registered = await Model.User.findOne({
+        const  registered = await User.findOne({
                 where: { email } 
         });
 		if (!registered) {
@@ -170,7 +164,7 @@ class userController {
 			}
 			const hash = await bcrypt.hash(password, 12);
 
-			await Model.User.update({ password: hash }, { where: { email } }).then(res.status(200).json({
+			await User.update({ password: hash }, { where: { email } }).then(res.status(200).json({
 				status: 200,
 				message: res.__('passwordReset')
 			}))
@@ -183,6 +177,49 @@ class userController {
 
         }
    }
+
+   static async getUserById(req, res){
+    try {
+      const { userId } = req.params;
+      const user = await User.findOne({
+        where: { id: userId } ,
+        attributes: {
+            exclude: ['password']
+          }      
+      });
+      if (user) {
+        return res.status(200).json({user});
+      }
+      return res.status(404).json({
+        message:res.__('User with the specified id is not found.')
+      })
+    } catch (error) {
+      return res.status(500).send(error.message);
+    }
+  }
+
+ static async updateUserSelf(req, res){
+    try {
+      if(req.body.email!=req.user.email){
+        res.status(401).json({ message: res.__("You have to use a registered email in order to update your profile")})
+        return false
+      }
+      const [ updated ] = await User.update(req.body, {
+        where: { email:req.user.email }
+      });
+      if (updated) {
+        const updatedUser = await User.findOne({ where: { email:req.user.email  },
+          attributes: {
+            exclude: ['password']
+          } 
+        });
+        return res.status(200).json({ user: updatedUser })
+      }
+      throw new Error('User not found');
+    } catch (error) {
+      return res.status(500).send(error.message);
+    }
+  }
 }
 
 export default userController

@@ -76,5 +76,7 @@
 	"email is not registered": "l'email n'est pas enregistré",
 	"confirm password is required": "Confirmez le mot de passe est obligatoire",
   "Token is required": "Token est obligatoire",
-	"Invalid link": "Le lien que vous utilisez est expiré"
+  "Invalid link": "Le lien que vous utilisez est expiré",
+  "gender must be one of [male, female, I rather not say]": "gender must be one of [male, female, I rather not say]",
+	"You have to use a registered email in order to update your profile": "Vous devez utiliser une adresse e-mail enregistrée pour mettre à jour votre profil"
 }

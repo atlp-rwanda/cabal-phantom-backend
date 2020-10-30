@@ -18,12 +18,10 @@ exports.sendEmail= async (mailOptions)  => {
         subject: mailOptions.subject,
         html: mailOptions.message
     }
-    await transporter.sendMail(Options, (error, info) => {
+    await transporter.sendMail(Options, (error) => {
         if (error) {
-            console.log("This is the problem you need to solve",error);
             return false
         } else {
-            console.log('Email sent: ' + info.response);
             return true
         }
     })

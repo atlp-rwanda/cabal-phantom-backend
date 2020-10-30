@@ -78,5 +78,9 @@
 	"email is not registered": "email is not registered",
 	"confirm password is required": "confirm password is required",
 	"Token is required": "Token is required",
-	"Invalid link": "Link you are using is expired"
+	"Invalid link": "Link you are using is expired",
+	"gender must be one of [male, female, I rather not say]": "gender must be one of [male, female, I rather not say]",
+	"You can't update email": "You can't update email",
+	"You have to use a registered email in order to update your profile": "You have to use a registered email in order to update your profile",
+	"error sending email": "error sending email"
 }

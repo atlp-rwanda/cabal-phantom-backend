@@ -3,10 +3,10 @@ const router = express()
 import userController from '../controller/userControllers'
 import protectMiddleware from '../middleware/protectRoutes'
 import checkEmailExists from '../middleware/checkEmailExist'
-//import userValidation from "../validation/userValidation";
 import validators from '../validation/index'
 
 const {logInChecker,resetPassword,sendEmailChecker,roleValidate,userValidate} = validators;
+import updateValidation from "../validation/userUpdatevalidation"
 
 /** 
  * @swagger
@@ -219,5 +219,70 @@ router.post('/forgetPassword',sendEmailChecker,userController.forgetPassword)
  */
 router.put('/resetPassword/:token',resetPassword,userController.resetPassword)
 
+/**
+ * 
+ * @swagger
+ * 
+ * /api/v1/auth/updateProfile:
+ *   patch:
+ *     summary: ' Update the profile of the user'
+ *     description: Update user's profile
+ *     tags:
+ *       - User
+ *     parameters:
+ *       - in: header
+ *         name: Authorization
+ *         required: true
+ *         type: string
+ *         description: token
+ *       - in: body
+ *         name: body
+ *         description: Update profile to the user
+ *         schema: 
+ *          type: object 
+ *          properties:
+ *           name: 
+ *            type: string
+ *           email: 
+ *            type: string
+ *           gender: 
+ *            type: string
+ *           birthdate: 
+ *            type: string
+ *     responses:
+ *       '200':
+ *         description: Profile Updated successfully
+ */
+router.patch(
+    "/updateProfile",
+    protectMiddleware.protect,
+    updateValidation.userValidate, 
+    userController.updateUserSelf
+)
+/**
+ * @swagger
+ * 
+ *   '/api/v1/auth/profiles/{id}':
+ *   get:
+ *     tags:
+ *       - User
+ *     summary: Get the profile of the user
+ *     description: Get user's profile
+ *     operationId: getProfile
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         type: number
+ *         required: true
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       '200':
+ *         description: OK
+ */
+router.get(
+    '/profiles/:userId', 
+    userController.getUserById
+    );
 
 export default router;
