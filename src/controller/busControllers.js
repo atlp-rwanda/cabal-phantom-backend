@@ -6,7 +6,7 @@ import controlAssign from '../utils/controlAssignBus'
 import Sequelize from 'sequelize'
 const Op = Sequelize.Op
 
-const {Bus,User} = Model
+const { Route, Bus,User } = Model
 class busController {
     static async createNewBus(req, res) {
         try {
@@ -209,26 +209,86 @@ class busController {
 
     }
 
-    // static async enquireBusInfo(req,res){
-    //     try {
-    //         const {id} = req.params
-    //         const findBus = await Bus.findByPk(id)
-    //         const availableSeats = findBus.seats - findBus.commuters
-    //         return res.status(200).json({
-    //                   location: findBus.location,
-    //                   status: findBus.status,
-    //                   commuters: findBus.commuters,
-    //                   type: findBus.type,
-    //                   availableSeats: availableSeats
-    //                 })            
+    static async assignRoute(req, res){
+        try {
+            const findRoute= req.route.id
+            const updated = await Bus.update({ routeId:findRoute },
+                { where: { id: req.params.id } });
+
+            if (updated) {
+                const assignedBus= await Bus.findOne({
+                    where: { id:req.params.id },
+                    include: [{
+                        model: Route,
+                        as: 'route',
+                        attributes:["id","name","routeID"]
+                    }]
+                });
+                return res.status(200).json({ bus: assignedBus })
+            }
+        } catch (error) {
+            return res.status(500).json({ message: res.__("can't assign bus to route") })
+        }
+    }
+
+    static async unassignRoute(req,res){
+        try{
+            const { id } = req.params
+
+            const busAssigned = await Bus.findOne({
+                where: {routeId: req.route.id, id}                             
+            })
+
+            if(!busAssigned){
+                return res.status(401).json({
+                    message: res.__("Bus is not assigned to the route ") + '<' + req.route.name + '>'
+                })
+            }
             
-    //     } catch (error) {
-    //        return res.status(500).json({
-    //             message: res.__("internalServerError")
-    //         })
-    //     }
-    // }
+            const unassignedBus = await Bus.update({ routeId:null}, { where: { id } })
+            
+            if(unassignedBus){
+                const findUnassignedBus = await Bus.findByPk(id)
+                return res.status(200).json({ findUnassignedBus })
+            }
+        
+        } catch (error){
+            return res.status(500).json({ message: res.__("can't unassign bus to route") })
+        }
+    }
+    
+    static async getAssignedBusesToRoutes(req, res) {
+        try {
+            const { page = 1, limit = 10 } = req.query
+            const offset = (page - 1) * limit
+            const { rows, count } = await Bus.findAndCountAll({
+                page, limit, offset,
+                where: { routeId: { [Op.ne]: null } },
+                include: [{
+                    model: Route,
+                    as: 'route',
+                    attributes:["id","name","routeID"]
+                }],
+                order: [
+                    ['id', 'asc']
+                ]
+            });
+            const pagination = paginate(page, count, rows, limit);
+            if (offset >= count) {
+                return res.status(404).json({
+                    message: res.__("page not found")
+                })
+            }
+            return res.status(200).json({
+                pagination,
+                rows
+            })
+        } catch (error) {
+            return res.status(500).json({
+                message: res.__("can't get buses")
+            })
+        }
+    }
 }
 
 export default busController
-

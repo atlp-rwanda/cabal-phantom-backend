@@ -125,5 +125,7 @@
 	"destination must not be empty": "destination must not be empty",
 	"Error happen during retreiving buses in your route": "Route you are searching does not exist",
 	"This route  does not exist": "This route  does not exist",
-	"this router doesn't exist in system":"this router doesn't exist in system"
+	"this router doesn't exist in system": "this router doesn't exist in system",
+	"can't assign bus to route": "can't assign bus to route",
+	"Bus is not assigned to the route ": "Bus is not assigned to the route "
 }
