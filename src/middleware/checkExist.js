@@ -2,13 +2,26 @@ import Model from '../database/models'
 import Sequelize from 'sequelize'
 const Op = Sequelize.Op
 
-exports.checkID = async (req, res, next) => {
+
+exports.checkBusID = async (req, res, next) => {
     const id = parseInt(req.params.id)
-    const items = await Model.Bus.findAll()
-    const IDs = items.map(item => item.id)
+    const buses = await Model.Bus.findAll()
+    const IDs = buses.map(bus => bus.id)
     if (!IDs.includes(id)) {
-        res.status(404).json({
+        return res.status(404).json({
             message: res.__("bus doesn't exist")
+        })
+    }
+    next()
+}
+
+exports.checkRouteID = async (req, res, next) => {
+    const id = parseInt(req.params.id)
+    const routes = await Model.Route.findAll()
+    const IDs = routes.map(route => route.id)
+    if (!IDs.includes(id)) {
+        return res.status(404).json({
+            message: res.__("route doesn't exist")
         })
     }
     next()
@@ -16,7 +29,7 @@ exports.checkID = async (req, res, next) => {
 
 exports.checkPlate = async (req, res, next) => {
     const findPlate = await Model.Bus.findOne({ where: { plate: req.body.plate } })
-    if (findPlate) {
+    if (findPlate && !(findPlate.id == req.params.id)) {
         res.status(409).json({
             message: res.__("Bus with") + " " + req.body.plate + " " + res.__("already exist")
         })
@@ -40,7 +53,18 @@ exports.checkAssigned = async (req, res, next) => {
     const findBus = await Model.Bus.findOne({ where: { id: req.params.id } })
     if (findBus.userId != null) {
         res.status(409).json({
-            message: res.__("Bus with") + " " + findBus.plate + " " + res.__("already assigned")
+            message: `${res.__("Bus with")} ${findBus.plate} ${res.__("already assigned")}`
+        })
+        return false
+    }
+    next()
+}
+
+exports.checkRoute = async (req, res, next) => {
+    const findRoute = await Model.Route.findOne({ where: { routeID: req.body.routeID } })
+    if (findRoute && !(findRoute.id == req.params.id)) {
+        res.status(409).json({
+            message: res.__("Route ") + " << " + req.body.routeID + " >> " + res.__("already exist")
         })
         return false
     }

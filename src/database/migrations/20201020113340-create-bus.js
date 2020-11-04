@@ -20,6 +20,12 @@ module.exports = {
       status: {
         type: Sequelize.STRING
       },
+      type: {
+        type: Sequelize.STRING
+      },
+      location: {
+        type: Sequelize.STRING
+      },
       userId: {
         type: Sequelize.INTEGER
       },

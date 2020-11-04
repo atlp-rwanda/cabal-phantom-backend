@@ -2,9 +2,8 @@ import busController from '../controller/busControllers'
 import busValidation from '../validation/busValidation'
 import checkExist from '../middleware/checkExist'
 import protectMiddleware from '../middleware/protectRoutes'
-import userValidation from '../validation/userValidation'
 import express from "express"
-import emailValidate from '../validation/emailValidate'
+import sendEmailChecker from '../validation/sendEmailValidation'
 
 const router = express()
 
@@ -36,6 +35,10 @@ const router = express()
  *        seats: 
  *         type: integer
  *        status: 
+ *         type: string
+ *        type: 
+ *         type: string
+ *        location: 
  *         type: string
  *   responses:
  *    201: 
@@ -148,11 +151,6 @@ router.get(
  *    tags:
  *    - Bus
  *    parameters:
- *    - in: header
- *      name: Authorization
- *      required: true
- *      type: string
- *      description: token to authorize
  *    - in: path
  *      name: id
  *      required: true
@@ -185,11 +183,17 @@ router.get(
  *      schema: 
  *       type: object 
  *       properties:
+ *        plate: 
+ *         type: string
  *        company: 
  *         type: string
  *        seats: 
  *         type: integer
  *        status: 
+ *         type: string
+ *        type: 
+ *         type: string
+ *        location: 
  *         type: string
  *    responses: 
  *     200: 
@@ -220,22 +224,21 @@ router.get(
 router
     .route('/:id')
     .get(
-        protectMiddleware.protect,
-        protectMiddleware.restrictTo('driver', 'operator', 'admin'),
-        checkExist.checkID,
+        checkExist.checkBusID,
         busController.getBus
     )
     .patch(
         protectMiddleware.protect,
         protectMiddleware.restrictTo('operator', 'admin'),
-        checkExist.checkID,
-        busValidation.updateBusValidate,
+        checkExist.checkBusID,
+        busValidation.busValidate,
+        checkExist.checkPlate,
         busController.updateBus
     )
     .delete(
         protectMiddleware.protect,
         protectMiddleware.restrictTo('operator', 'admin'),
-        checkExist.checkID,
+        checkExist.checkBusID,
         busController.deleteBus
     )
 /** 
@@ -275,11 +278,11 @@ router.patch(
     '/assigndriver/:id',
     protectMiddleware.protect,
     protectMiddleware.restrictTo('operator', 'admin'),
-    emailValidate,
+    sendEmailChecker,
     checkExist.ckeckUserEmail,
     checkExist.checkRole,
     checkExist.checkDriverAssigned,
-    checkExist.checkID,
+    checkExist.checkBusID,
     checkExist.checkAssigned,
     busController.assignDriver
  )
@@ -319,7 +322,7 @@ router.patch(
 
  router.patch(
     '/unassigndriver/:id',
-    emailValidate,
+    sendEmailChecker,
     protectMiddleware.protect,
     protectMiddleware.restrictTo('operator', 'admin'),
     checkExist.ckeckUserEmail,

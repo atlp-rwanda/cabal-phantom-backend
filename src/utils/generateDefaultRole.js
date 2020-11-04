@@ -4,11 +4,13 @@ exports.generateDefault = () => {
 }
 
 exports.classifyBus = val => {
+     let category
      if (val >= 18 && val < 30) {
-          return "small"
+          category = "small"
      } else if (val >= 30 && val < 60) {
-          return "medium"
+          category = "medium"
      } else if (val >= 60) {
-          return "large"
+          category = "large"
      }
+     return category
 }
