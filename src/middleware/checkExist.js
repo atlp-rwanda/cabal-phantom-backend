@@ -126,3 +126,28 @@ exports.checkRouteExist = async (req,res,next) =>{
     req.route = route
     next();
 }
+
+exports.findRoute = async(req, res, next)=>{
+    const findRoute = await Route.findOne({
+        where:{ routeID: req.body.routeID }
+    })
+    if(!findRoute){
+        res.status(404).json({
+            message: res.__("route doesn't exist")
+        });
+        return false
+    }
+    req.route = findRoute
+    next()   
+}
+
+exports.checkBusAssigned = async (req, res, next) => {
+    const findBus = await Bus.findOne({ where: { id: req.params.id } })
+    if (findBus.routeId != null) {
+        res.status(409).json({
+            message: `${res.__("Bus with")} ${findBus.plate} ${res.__("already assigned")}`
+        })
+        return false
+    }
+    next()
+}

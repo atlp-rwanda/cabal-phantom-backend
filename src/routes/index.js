@@ -1,7 +1,7 @@
 import express from 'express'
 import userRoute from './authRouters'
 import busRoute from '../routes/busRoutes'
-import routeRoute from '../routes/routeRoutes'
+import roadRoute from '../routes/routeRoutes'
 import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import swaggerOptions from '../utils/swaggerSpecicification';
@@ -19,7 +19,7 @@ router.get('/', (req, res) => {
 
 router.use('/api/v1/auth', userRoute)
 router.use('/api/v1/buses', busRoute)
-router.use('/api/v1/routes', routeRoute)
+router.use('/api/v1/routes',roadRoute)
 
 router.all('*', (req, res) => {
     res.status(404).json({

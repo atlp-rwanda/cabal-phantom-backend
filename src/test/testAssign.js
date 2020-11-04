@@ -120,7 +120,6 @@ describe('PHANTOM API - TEST ASSIGNMENT', () => {
             });
     });
 
-
     it('it should not retrieve assigned buses when limit is undefined', (done) => {
         chai.request(app)
             .get('/api/v1/buses/assignedbuses?page=1&limit=undefined')
