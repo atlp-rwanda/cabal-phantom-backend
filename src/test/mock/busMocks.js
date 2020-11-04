@@ -2,20 +2,36 @@ exports.plateExist = {
     "plate": "RAB345E",
     "company": "RFTC",
     "seats": "28",
-    "status": "inactive"
+    "status": "moving",
+    "type": "coaster",
+    "location": "South"
 }
 
 exports.NewBus = {
     "plate": "RAE001A",
     "company": "RFTC",
     "seats": "29",
-    "status": "active"
+    "status": "moving",
+    "type": "coaster",
+    "location": "South"
 }
 
 exports.updatedBus = {
+    "plate": "RAB345E",
     "company": "Royal",
-    "seats": "32",
-    "status": "inactive"
+    "seats": "43",
+    "status": "moving",
+    "type": "coaster",
+    "location": "South"
+}
+
+exports.NotIdUpdatedBus = {
+    "plate": "RAB123E",
+    "company": "Royal",
+    "seats": "70",
+    "status": "moving",
+    "type": "coaster",
+    "location": "South"
 }
 
 exports.NotUpdatedBus = {

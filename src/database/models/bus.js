@@ -5,6 +5,8 @@ module.exports = (sequelize, DataTypes) => {
     seats: DataTypes.INTEGER,
     status: DataTypes.STRING,
     category: DataTypes.STRING,
+    type: DataTypes.STRING,
+    location: DataTypes.STRING,
     userId: DataTypes.INTEGER
   }, {});
   Bus.associate = function(models) {

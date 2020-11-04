@@ -42,7 +42,7 @@ describe("Phantom API - Auth", () => {
             .get('/api/v1/auth')
             .set("Authorization", userMock.token.admin)
             .end((err, res) => {
-                expect(res.body).to.be.an('object');
+                expect(res.statusCode).to.equal(200);
                 done();
             });
     });

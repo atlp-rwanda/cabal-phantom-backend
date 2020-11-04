@@ -1,7 +1,6 @@
 import Model from '../database/models'
 import helperFunction from '../utils/generateDefaultRole'
 import { paginate } from 'paginate-info'
-import emails from "../utils/sendEmail"
 import message from '../utils/messageMocks'
 import controlAssign from '../utils/controlAssignBus'
 import Sequelize from 'sequelize'
@@ -11,11 +10,11 @@ const Op = Sequelize.Op
 class busController {
     static async createNewBus(req, res) {
         try {
-            const { plate, company, seats, status } = req.body
+            const { plate, company, seats, status, type, location } = req.body
             const category = helperFunction.classifyBus(req.body.seats)
 
             const bus = await Model.Bus.create({
-                plate, company, seats, status, category
+                plate, company, seats, status, type, location, category
             });
             return res.status(201).json({
                 bus
@@ -32,12 +31,15 @@ class busController {
             const { page = 1, limit = 10 } = req.query
             const offset = (page - 1) * limit
             const { rows, count } = await Model.Bus.findAndCountAll({
-                page, limit, offset
+                page, limit, offset,
+                order: [
+                    ['id', 'asc']
+                ]
             });
             const pagination = paginate(page, count, rows, limit);
 
             if (offset >= count) {
-                res.status(404).json({
+                return res.status(404).json({
                     message: res.__("page not found")
                 })
             }
@@ -46,7 +48,7 @@ class busController {
                 rows
             })
         } catch (error) {
-            res.status(500).json({
+            return res.status(500).json({
                 message: res.__("can't get buses")
             })
         }
@@ -55,9 +57,9 @@ class busController {
     static async getBus(req, res) {
         try {
             const bus = await Model.Bus.findAll({ where: { id: req.params.id } })
-            res.status(200).json({ bus })
+            return res.status(200).json({ bus })
         } catch (error) {
-            res.status(500).json({
+            return res.status(500).json({
                 message: res.__("Bus with") + ` id = ${req.params.id} ` + res.__("not found")
             })
         }
@@ -65,23 +67,23 @@ class busController {
 
     static async updateBus(req, res) {
         try {
-            const { company, seats, status } = req.body
+            const { plate, company, seats, status, type, location } = req.body
             const category = helperFunction.classifyBus(req.body.seats)
-            
+
             const updated = await Model.Bus.update(
-                {company, seats, status, category},
+                { plate, company, seats, status, type, location, category },
                 {
                     where: { id: req.params.id }
                 })
 
             if (updated) {
                 const updatedBus = await Model.Bus.findByPk(req.params.id)
-                res.status(200).json({
+                return res.status(200).json({
                     updatedBus
                 })
             }
         } catch (error) {
-            res.status(500).json({
+            return res.status(500).json({
                 message: res.__("can't update bus")
             })
         }
@@ -89,60 +91,61 @@ class busController {
 
     static async deleteBus(req, res) {
         await Model.Bus.destroy({ where: { id: req.params.id } })
-        res.status(200).json({
+        return res.status(200).json({
             message: res.__("Deleted successfully")
         })
     }
-    static async assignDriver(req,res){
-       
-        try{
+
+    static async assignDriver(req, res) {
+
+        try {
             const user = await Model.User.findOne({
-                where: { email:req.body.email},
-              });
-          
-           
-            const updated = await Model.Bus.update({ userId:user.id },
-                        { where: {id:req.params.id } }
-                     );
-                     if (updated) {
-                        const bus= await Model.Bus.findOne({
-                                where: { id:req.params.id },
-                                include: [{
-                                    model:Model.User,
-                                    as:'driver',
-                                    attributes:["id","name","email"]
-                                }]
-                        });
+                where: { email: req.body.email },
+            });
 
-                        const Options = {
-                            userEmail:req.body.email,
-                            subject:'Phantom assignment',
-                            message:message.assignMessage(user.name,bus.plate)
-                        }
 
-                        controlAssign.controlAssignment(Options, bus, res)
-                    }
-            
-        }catch (error) {
+            const updated = await Model.Bus.update({ userId: user.id },
+                { where: { id: req.params.id } }
+            );
+            if (updated) {
+                const bus = await Model.Bus.findOne({
+                    where: { id: req.params.id },
+                    include: [{
+                        model: Model.User,
+                        as: 'driver',
+                        attributes: ["id", "name", "email"]
+                    }]
+                });
+
+                const Options = {
+                    userEmail: req.body.email,
+                    subject: 'Phantom assignment',
+                    message: message.assignMessage(user.name, bus.plate)
+                }
+
+                controlAssign.controlAssignment(Options, bus, res)
+            }
+
+        } catch (error) {
             return res.status(500).json({ message: error })
         }
     }
 
-    static async unassignDriver(req,res){
+    static async unassignDriver(req, res) {
         try {
-            const updated = await Model.Bus.update({ userId:null },
-                { where: {id:req.params.id } }
+            const updated = await Model.Bus.update({ userId: null },
+                { where: { id: req.params.id } }
             );
 
             if (updated) {
                 const bus = await Model.Bus.findOne({
-                        where: { id:req.params.id },
+                    where: { id: req.params.id },
                 });
 
-                const Options ={
-                    userEmail:req.body.email,
-                    subject:'Phantom Unassignment',
-                    message:message.unassignMessage(req.user.name,bus.plate)    
+                const Options = {
+                    userEmail: req.body.email,
+                    subject: 'Phantom Unassignment',
+                    message: message.unassignMessage(req.user.name, bus.plate)
                 }
 
                 controlAssign.controlAssignment(Options, bus, res)
@@ -159,18 +162,18 @@ class busController {
             const { rows, count } = await Model.Bus.findAndCountAll({
                 page, limit, offset,
                 where: { userId: { [Op.ne]: null } },
-                include:[{
-                    model:Model.User,
-                    as:'driver',
-                    attributes:["id","name","email"]
-                 }],
+                include: [{
+                    model: Model.User,
+                    as: 'driver',
+                    attributes: ["id", "name", "email"]
+                }],
                 order: [
                     ['id', 'asc']
                 ]
             });
             const pagination = paginate(page, count, rows, limit);
             if (offset >= count) {
-                res.status(404).json({
+                return res.status(404).json({
                     message: res.__("page not found")
                 })
             }
@@ -179,7 +182,7 @@ class busController {
                 rows
             })
         } catch (error) {
-            res.status(500).json({
+            return res.status(500).json({
                 message: res.__("can't get buses")
             })
         }
